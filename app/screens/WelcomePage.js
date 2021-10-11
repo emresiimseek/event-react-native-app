@@ -1,8 +1,10 @@
 import React from 'react';
 import { Alert, ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import App from '../../App';
 import Button from '../common-components/Button';
 
-function WelcomePage(props) {
+function WelcomePage({ props, navigation }) {
+
     return (
         <ImageBackground style={styles.background} source={require("../assets/img/fun.jpg")}>
             <SafeAreaView>
@@ -10,7 +12,7 @@ function WelcomePage(props) {
                     <View style={styles.slideArea}>
                         <Text style={styles.textArea}>
                             BeSocail ile tanış!{"\n"}{"\n"}
-                            Etkinlik düzenle,{"\n"}
+                            Etkinlikler oluştur,{"\n"}
                             Etkinliklere katıl,{"\n"}
                             Yeni insanlar ile tanış.{"\n"}
                         </Text>
@@ -18,7 +20,8 @@ function WelcomePage(props) {
 
                 </View>
                 <View style={styles.bottomArea}>
-                    <Button text="Giriş" onPress={() => Alert.alert("selam")} />
+
+                    <Button text="Giriş" onPress={() => navigation.navigate('Login')} />
                     <Button text="Kaydol" />
 
                 </View>
