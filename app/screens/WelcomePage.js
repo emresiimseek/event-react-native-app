@@ -19,12 +19,16 @@ function WelcomePage({ props, navigation }) {
 
                 </View>
                 <View style={styles.bottomArea}>
+                    <CoButton
+                        text="Giriş"
+                        width={100}
+                        color="black"
+                        onPress={() => navigation.navigate('Login')} />
 
                     <CoButton
-                        text="Giriş" onPress={() => navigation.navigate('Login')} />
-                    <CoButton
-                        text="Kaydol" />
-
+                        text="Kaydol"
+                        color="black"
+                        onPress={() => navigation.navigate('Signin')} />
                 </View>
             </SafeAreaView>
         </ImageBackground>
