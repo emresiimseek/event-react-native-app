@@ -1,28 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 function Button(props) {
-    const { text = "Kaydet", onPress } = props;
+    const { text = "Kaydet", onPress, width = 100, color = "blue", padding = 10, loading = false } = props;
 
     return (
         <TouchableOpacity
             onPress={onPress}
+            disabled={loading}
             style={styles.button}
             activeOpacity={0.6}
+            style={{
+                width: `${width}%`,
+                backgroundColor: color,
+                alignItems: "center",
+                padding,
+                marginBottom: 5,
+                borderRadius: 5,
+
+            }}
         >
-            <Text style={styles.text}>{text}</Text>
-        </TouchableOpacity>
+
+            {loading ? <ActivityIndicator size="small" color="white" /> : <Text style={styles.text}>{text}</Text>}
+        </TouchableOpacity >
     );
 }
 
 const styles = StyleSheet.create({
-    button: {
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 15,
-        borderRadius: 5,
-        margin: 5,
-    },
 
     text: {
         color: "white"

@@ -6,27 +6,43 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Button from './app/common-components/CoButton';
 import LoginPage from './app/screens/LoginPage';
+import SignIn from './app/screens/SignIn';
+import Toast from 'react-native-toast-message';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
 
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={WelcomePage} >
-        <Stack.Screen name="Welcome" component={WelcomePage}
-          options={{
-            headerStyle: { backgroundColor: '#00000050', },
-            headerTitleStyle: { color: "white", },
-            title: 'BeSocial',
-          }} />
-        <Stack.Screen name="Login" component={LoginPage}
-          options={{
-            headerStyle: { backgroundColor: '#00000050', },
-            headerTitleStyle: { color: "white", },
-            title: 'Giriş',
-          }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <React.Fragment>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={WelcomePage} >
+          <Stack.Screen name="Welcome" component={WelcomePage}
+            options={{
+              headerStyle: { backgroundColor: '#00000050', },
+              headerTitleStyle: { color: "white", },
+              headerTitleAlign: "center",
+              title: 'BeSocial',
+            }} />
+          <Stack.Screen name="Login" component={LoginPage}
+            options={{
+              headerStyle: { backgroundColor: '#00000050', },
+              headerTitleStyle: { color: "white", },
+              headerTitleAlign: "center",
+              title: 'Giriş',
+            }} />
+          <Stack.Screen name="Signin" component={SignIn}
+            options={{
+              headerStyle: { backgroundColor: '#00000050', },
+              headerTitleStyle: { color: "white", },
+              headerTitleAlign: "center",
+              title: 'Kayıt Ol',
+            }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
+    </React.Fragment>
 
   );
 }

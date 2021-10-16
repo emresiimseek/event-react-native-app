@@ -2,11 +2,16 @@ import axios from "axios";
 import { apiBase } from "./api/api-base";
 
 class UserLogic {
-
-    async login(user) {
-        const result = await apiBase.postDataUsingSimplePostCall(user);
+    login = (user) => {
+        return apiBase.postRequest("authentication", user);
 
     }
+
+    save = (user) => {
+        return apiBase.postRequest("users", user);
+
+    }
+
 }
 
 export const userLogic = new UserLogic();
