@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert, ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import App from '../../App';
-import Button from '../common-components/Button';
+import CoButton from '../common-components/CoButton';
 
 function WelcomePage({ props, navigation }) {
 
@@ -21,8 +20,10 @@ function WelcomePage({ props, navigation }) {
                 </View>
                 <View style={styles.bottomArea}>
 
-                    <Button text="Giriş" onPress={() => navigation.navigate('Login')} />
-                    <Button text="Kaydol" />
+                    <CoButton
+                        text="Giriş" onPress={() => navigation.navigate('Login')} />
+                    <CoButton
+                        text="Kaydol" />
 
                 </View>
             </SafeAreaView>
