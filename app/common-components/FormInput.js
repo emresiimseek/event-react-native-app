@@ -1,18 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, TextInput, View, Text } from 'react-native';
 
-const ValidationList = ({ validations, fieldName, labelName }) => {
-    const values = setValidationItems(validations, fieldName, labelName);
 
-    if (values.length) {
-        return values.map(value => <Text style={{
-            backgroundColor: "red", color: "white", marginBottom: 3, borderRadius: 5, padding: 3
-        }} key={value}>{value}</Text>);
-    }
-    else return <View style={{ margin: 0, padding: 0 }}></View>
-}
-
-setValidationItems = (values, fieldName, labelName) => {
+const setValidationItems = (values, fieldName, labelName) => {
     let items = [];
 
     for (const key in values) {
@@ -28,6 +18,17 @@ setValidationItems = (values, fieldName, labelName) => {
     }
     return items;
 
+}
+
+const ValidationList = ({ validations, fieldName, labelName }) => {
+    const values = setValidationItems(validations, fieldName, labelName);
+
+    if (values.length) {
+        return values.map(value => <Text style={{
+            backgroundColor: "red", color: "white", marginBottom: 3, borderRadius: 5, padding: 3
+        }} key={value}>{value}</Text>);
+    }
+    else return <View style={{ margin: 0, padding: 0 }}></View>
 }
 
 

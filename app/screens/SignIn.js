@@ -14,18 +14,26 @@ class SignIn extends BaseComponent {
 
     signIn = async () => {
         const result = await this.handleRequest(() => userLogic.save(this.state.user));
+        if (result.errors.length) {
+            result.errors.forEach(element => {
+                Toast.show({
+                    type: 'error',
+                    text1: element.errors.join("|"),
+                    position: "top"
+                });
+            });
+        }
 
-        console.log(result);
-        Toast.show({
-            type: 'success',
-            text1: 'Hello',
-            text2: 'This is some something 👋',
-            position: "bottom"
-        });
+
+        if (result.model.length) {
+            Toast.show({
+                type: 'success',
+                text1: 'Kayıt başarılı bir şekilde oluşturuldu.',
+                position: "top"
+            });
+        }
+
     }
-
-
-
     render() {
         return (
             <DefaultPageLayout>
