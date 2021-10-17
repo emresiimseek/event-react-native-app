@@ -8,16 +8,25 @@ import Button from './app/common-components/CoButton';
 import LoginPage from './app/screens/LoginPage';
 import SignIn from './app/screens/SignIn';
 import Toast from 'react-native-toast-message';
-
+import HomePage from './app/screens/Home/HomePage';
+import FlowPage from './app/screens/Home/FlowPage';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-
-
   return (
     <React.Fragment>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={WelcomePage} >
+        <Stack.Navigator initialRouteName={HomePage}   >
+          <Stack.Screen name="Home" component={HomePage}
+            options={{
+              headerStyle: { backgroundColor: '#00000050' },
+              headerTitleStyle: { color: "white", },
+              headerTitleAlign: "center",
+              headerShown: false,
+              title: 'Ana Sayfa',
+            }} />
+
+          <Stack.Screen name="Flow" component={FlowPage} />
           <Stack.Screen name="Welcome" component={WelcomePage}
             options={{
               headerStyle: { backgroundColor: '#00000050', },

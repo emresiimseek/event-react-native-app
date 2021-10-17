@@ -1,21 +1,44 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Button, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import BaseComponent from '../common-components/BaseComponent';
 import CoButton from '../common-components/CoButton';
 import FormInput from '../common-components/FormInput';
 import UserLogic, { userLogic } from '../logic/user-logic';
 
 class LoginPage extends BaseComponent {
-    state = { userName: "", password: "", error: "", ...this.baseState }
+    state = { userName: "", password: "", ...this.baseState }
 
     login = async () => {
         const result = await this.handleRequest(() => userLogic.login(this.state));
-        const error = result?.errors?.flatMap(x => x.errors).join(",") ?? "";
-        this.setState({ error });
+        const errors = result?.errors?.flatMap(x => x.errors);
+
+        if (errors.length) {
+            errors.forEach(element => {
+                Toast.show({
+                    type: 'error',
+                    text1: element,
+                    position: "bottom"
+                });
+
+            });
+        }
+
+        if (result.model.length) {
+            Toast.show({
+                type: 'success',
+                text1: "Giriş Başarılı.",
+                position: "bottom"
+            });
+
+            this.props.navigation.navigate("Home");
+
+        }
     }
 
     render() {
         return (
+
             <ImageBackground style={styles.background} source={require("../assets/img/fun.jpg")}>
 
                 <View style={styles.loginContainer}>
@@ -48,16 +71,6 @@ class LoginPage extends BaseComponent {
                         />
 
                         <View style={{ alignItems: 'center', }}>
-                            {!!this.state.error &&
-                                <Text style={{
-                                    color: "white",
-                                    backgroundColor: "red",
-                                    marginBottom: 5,
-                                    padding: 3,
-                                    borderRadius: 5,
-                                    textAlign: 'center',
-                                    textTransform: "capitalize"
-                                }}>{this.state.error}</Text>}
 
 
                             <CoButton loading={this.state.loading} text="Giriş" color="black" width={50} onPress={() => this.login()} />
