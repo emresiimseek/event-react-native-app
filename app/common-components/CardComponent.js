@@ -9,7 +9,6 @@ class CardComponent extends Component {
 
     render() {
         moment.locale('tr');
-
         const {
             event = { userId: "", userName: "", userFullName: "", activityDescription: "", activityTitle: "", categories: [], activityDate: "" }
         } = this.props;
@@ -19,7 +18,7 @@ class CardComponent extends Component {
             <View style={styles.cardContainer}>
                 <View style={styles.header}>
                     <View style={{ flex: 1, marginLeft: 10, flexDirection: 'row', alignItems: 'center' }}>
-                        <Icon name="user-circle" size={30} />
+                        <Icon name="user-circle" size={25} />
                         <Text style={{ marginLeft: 5, }}>{event.userName}</Text>
                     </View>
 

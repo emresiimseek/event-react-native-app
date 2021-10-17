@@ -10,6 +10,8 @@ import SignIn from './app/screens/SignIn';
 import Toast from 'react-native-toast-message';
 import HomePage from './app/screens/Home/HomePage';
 import FlowPage from './app/screens/Home/FlowPage';
+import ProfilePage from './app/screens/Home/ProfilePage';
+import NewEventPage from './app/screens/Home/NewEventPage';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -27,6 +29,8 @@ export default function App() {
             }} />
 
           <Stack.Screen name="Flow" component={FlowPage} />
+          <Stack.Screen name="Profile" component={ProfilePage} />
+          <Stack.Screen name="NewEvent" component={NewEventPage} />
           <Stack.Screen name="Welcome" component={WelcomePage}
             options={{
               headerStyle: { backgroundColor: '#00000050', },
