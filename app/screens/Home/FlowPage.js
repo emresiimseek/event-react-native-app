@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { Button, ScrollView, View } from "react-native";
+import { ActivityIndicator, Button, ScrollView, View } from "react-native";
 import BaseComponent from "../../common-components/BaseComponent";
-import Card from "../../common-components/CardComponent";
+import CardComponent from "../../common-components/CardComponent";
+import CardList from "../../common-components/CardList";
+import Loading from "../../common-components/Loading";
 import { eventLogic } from "../../logic/event-logic";
+
 
 class FlowPage extends BaseComponent {
     constructor(props) {
         super(props);
-        this.state = { events: [] };
+        this.state = { events: [], ...this.baseState };
     }
 
     componentDidMount() {
@@ -24,12 +27,9 @@ class FlowPage extends BaseComponent {
     render() {
         return (
             <View style={{ backgroundColor: "white" }}>
-                <Button title="tıkla" onPress={() => this.getEvents()}></Button>
+                {this.state.loading && <Loading />}
 
-                <ScrollView>
-                    {this.state.events.map((event, i) => <Card event={event} key={i} />)}
-                </ScrollView>
-
+                <CardList events={this.state.events} />
             </View>
         );
     }

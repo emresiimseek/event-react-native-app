@@ -1,35 +1,45 @@
 import React, { Component } from 'react';
-import { SafeAreaView } from "react-native-safe-area-context";
-import FlowPage from './FlowPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FlowPage from './FlowPage';
+import ProfilePage from './ProfilePage';
+import NewEventPage from './NewEventPage';
+import { Pressable, TouchableOpacity } from 'react-native';
 const Tab = createBottomTabNavigator();
 
-// imrc
-// ims
-// slr
-// ccs
-// cccs
-// ees
-
+// rnc
+// rnf
+// rnfs
+// rnfe
+// rnfes
+// rncs
+// rnce
 
 class HomePage extends Component {
     state = {}
     render() {
         return (
             <Tab.Navigator screenOptions={({ route }) => ({
-                tabBarIcon: () => {
+                tabBarIcon: ({ focused }) => {
                     if (route.name == "Flow")
-                        return <Icon name="home" size={30} />
+                        return <Icon name="home" size={30} color={focused ? "black" : "gray"} ></Icon>
+                    else if (route.name == "Profile")
+                        return <Icon name="user" size={30} color={focused ? "black" : "gray"} />
+                    else if (route.name == "NewEvent")
+                        return <Icon name="plus-circle" size={30} color={focused ? "black" : "gray"} />
                 },
-                headerStyle: { backgroundColor: '#00000050' },
-                headerTitleStyle: { color: "white", },
+
+                tabBarActiveTintColor: "red",
+                headerStatusBarHeight: 10,
+                headerTitleStyle: { color: "black", },
                 headerTitleAlign: "center",
-                title: 'Akış',
+                title: 'BeSocial',
                 tabBarShowLabel: false,
-            })} >
+            })}  >
                 <Tab.Screen name="Flow" component={FlowPage} />
+                <Tab.Screen name="NewEvent" component={NewEventPage} />
+                <Tab.Screen name="Profile" component={ProfilePage} />
+
             </Tab.Navigator >
         )
     }
