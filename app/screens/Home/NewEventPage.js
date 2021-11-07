@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Alert } from 'react-native'
+import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BaseComponent from '../../common-components/BaseComponent';
 import Button from '../../common-components/CoButton'
@@ -13,7 +14,7 @@ import { eventLogic } from '../../logic/event-logic';
 
 export default class NewEventPage extends BaseComponent {
 
-    state = { event: { title: "", description: "", eventDate: "", activityCategories: [], userActivities: [] }, date: "", time: "", categories: [], ...this.baseState }
+    state = { event: { title: "", description: "", eventDate: undefined, activityCategories: [], userActivities: [] }, date: "", time: "", categories: [], ...this.baseState }
 
     setDate = (date) => {
         const value = dateUtils.dateToApiDate(new Date(date), true)
@@ -39,10 +40,11 @@ export default class NewEventPage extends BaseComponent {
     saveEvent = async () => {
 
         const user = JSON.parse(await AsyncStorage.getItem("user"));
+        this.setEventDate();
 
         this.setState({
-            ...this.state.event,
             event: {
+                ...this.state.event,
                 userActivities: [{
                     userId: user.id,
                     activityId: 0,
@@ -50,11 +52,25 @@ export default class NewEventPage extends BaseComponent {
             }
         })
 
+        console.log(this.state.event);
         const result = await this.handleRequest(() => eventLogic.saveEvent(this.state.event));
-        console.log("resulet", this.state.validations);
+        console.log(result);
+
+
+        if (result) {
+            Toast.show({
+                type: 'success',
+                text1: "Başarılı.",
+                position: "bottom"
+            });
+        }
+
+
     }
 
-    concatDate = () => {
+    setEventDate = () => {
+        if (!this.state.date || !this.state.time) return;
+
         const eventDate = dateUtils.setTimeToApiDate(this.state.date, this.state.time)
         this.setState({ event: { ...this.state.event, eventDate, } })
     }
@@ -64,11 +80,32 @@ export default class NewEventPage extends BaseComponent {
             <View style={{ backgroundColor: "white", padding: 5, margin: 5, borderRadius: 5, height: "100%" }}>
                 <View style={{ flex: 1 }}>
                     <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 15 }}>Etlinlik Oluştur</Text>
-                    <FormInput placeholder="Başlık" value={this.state.event.title} validations={this.state.validations} fieldName="Title" />
-                    <FormInput placeholder="Açıklama" value={this.state.event.description} validations={this.state.validations} fieldName="Description" />
+                    <FormInput placeholder="Başlık"
+                        onChangeText={title => this.setState({ event: { ...this.state.event, title } })}
+                        value={this.state.event.title}
+                        validations={this.state.validations}
+                        fieldName="Title" />
 
-                    <DatePicker type="date" dateSelected={this.setDate} validations={this.state.validations} fieldName="EventDate" placeHolder="Tarih" />
-                    <DatePicker type="time" dateSelected={this.setTime} validations={this.state.validations} fieldName="EventDate" placeHolder="Saat" />
+                    <FormInput
+                        onChangeText={description => this.setState({ event: { ...this.state.event, description } })}
+                        placeholder="Açıklama"
+                        value={this.state.event.description}
+                        validations={this.state.validations}
+                        fieldName="Description" />
+
+                    <DatePicker
+                        type="date"
+                        dateSelected={this.setDate}
+                        validations={this.state.validations}
+                        fieldName="EventDate"
+                        placeHolder="Tarih" />
+
+                    <DatePicker
+                        type="time"
+                        dateSelected={this.setTime}
+                        validations={this.state.validations}
+                        fieldName="EventDate"
+                        placeHolder="Saat" />
                     <SelectPicker
                         placeHolder="Kategoriler"
                         validations={this.state.validations} fieldName="ActivityCategories"
