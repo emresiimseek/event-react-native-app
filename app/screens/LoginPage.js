@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert, Button, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import Toast from 'react-native-toast-message';
 import BaseComponent from '../common-components/BaseComponent';
 import CoButton from '../common-components/CoButton';
@@ -13,7 +15,7 @@ class LoginPage extends BaseComponent {
         const result = await this.handleRequest(() => userLogic.login(this.state));
         const errors = result?.errors?.flatMap(x => x.errors);
 
-        if (errors.length) {
+        if (errors?.length) {
             errors.forEach(element => {
                 Toast.show({
                     type: 'error',
@@ -24,12 +26,14 @@ class LoginPage extends BaseComponent {
             });
         }
 
-        if (result.model.length) {
+        if (result?.model?.length) {
             Toast.show({
                 type: 'success',
                 text1: "Giriş Başarılı.",
                 position: "bottom"
             });
+
+            AsyncStorage.setItem("user", JSON.stringify(result.model[0]));
 
             this.props.navigation.navigate("Home");
 

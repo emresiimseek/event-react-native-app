@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@react-native-async-storage/async-storage": "^1.15.9",
     "axios": "^0.23.0",
     "react-native-toast-message": "^1.6.0"
   },

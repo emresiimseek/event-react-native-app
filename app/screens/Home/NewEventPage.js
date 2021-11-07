@@ -4,8 +4,8 @@ import { Text, StyleSheet, View } from 'react-native'
 export default class NewEventPage extends Component {
     render() {
         return (
-            <View>
-                <Text> NewEvent </Text>
+            <View style={{ backgroundColor: "white" }}>
+
             </View>
         )
     }

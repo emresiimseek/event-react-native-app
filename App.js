@@ -18,7 +18,15 @@ export default function App() {
   return (
     <React.Fragment>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={HomePage}   >
+        <Stack.Navigator initialRouteName={WelcomePage}>
+          <Stack.Screen name="Welcome" component={WelcomePage}
+            options={{
+              headerStyle: { backgroundColor: '#00000050', },
+              headerTitleStyle: { color: "white", },
+              headerTitleAlign: "center",
+              title: 'BeSocial',
+            }} />
+
           <Stack.Screen name="Home" component={HomePage}
             options={{
               headerStyle: { backgroundColor: '#00000050' },
@@ -31,13 +39,7 @@ export default function App() {
           <Stack.Screen name="Flow" component={FlowPage} />
           <Stack.Screen name="Profile" component={ProfilePage} />
           <Stack.Screen name="NewEvent" component={NewEventPage} />
-          <Stack.Screen name="Welcome" component={WelcomePage}
-            options={{
-              headerStyle: { backgroundColor: '#00000050', },
-              headerTitleStyle: { color: "white", },
-              headerTitleAlign: "center",
-              title: 'BeSocial',
-            }} />
+
           <Stack.Screen name="Login" component={LoginPage}
             options={{
               headerStyle: { backgroundColor: '#00000050', },
