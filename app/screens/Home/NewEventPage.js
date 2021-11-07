@@ -1,12 +1,85 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, Alert } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import BaseComponent from '../../common-components/BaseComponent';
+import Button from '../../common-components/CoButton'
+import DatePicker from '../../common-components/DatePicker'
+import FormInput from '../../common-components/FormInput'
+import SelectPicker from '../../common-components/SelectPicker';
+import dateUtils from '../../logic/date-utils'
+import { eventLogic } from '../../logic/event-logic';
 
-export default class NewEventPage extends Component {
+
+export default class NewEventPage extends BaseComponent {
+
+    state = { event: { title: "", description: "", eventDate: "", activityCategories: [], userActivities: [] }, date: "", time: "", categories: [], ...this.baseState }
+
+    setDate = (date) => {
+        const value = dateUtils.dateToApiDate(new Date(date), true)
+        this.setState({ date: value })
+    }
+
+    setTime = (time) => {
+        this.setState({ time })
+
+    }
+
+    componentDidMount() {
+        this.getCategories();
+    }
+
+    getCategories = async () => {
+
+        const categories = await eventLogic.getCategories();
+        this.setState({ categories });
+
+    }
+
+    saveEvent = async () => {
+
+        const user = JSON.parse(await AsyncStorage.getItem("user"));
+
+        this.setState({
+            ...this.state.event,
+            event: {
+                userActivities: [{
+                    userId: user.id,
+                    activityId: 0,
+                }]
+            }
+        })
+
+        const result = await this.handleRequest(() => eventLogic.saveEvent(this.state.event));
+        console.log("resulet", this.state.validations);
+    }
+
+    concatDate = () => {
+        const eventDate = dateUtils.setTimeToApiDate(this.state.date, this.state.time)
+        this.setState({ event: { ...this.state.event, eventDate, } })
+    }
+
     render() {
         return (
-            <View style={{ backgroundColor: "white" }}>
+            <View style={{ backgroundColor: "white", padding: 5, margin: 5, borderRadius: 5, height: "100%" }}>
+                <View style={{ flex: 1 }}>
+                    <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 15 }}>Etlinlik Oluştur</Text>
+                    <FormInput placeholder="Başlık" value={this.state.event.title} validations={this.state.validations} fieldName="Title" />
+                    <FormInput placeholder="Açıklama" value={this.state.event.description} validations={this.state.validations} fieldName="Description" />
 
-            </View>
+                    <DatePicker type="date" dateSelected={this.setDate} validations={this.state.validations} fieldName="EventDate" placeHolder="Tarih" />
+                    <DatePicker type="time" dateSelected={this.setTime} validations={this.state.validations} fieldName="EventDate" placeHolder="Saat" />
+                    <SelectPicker
+                        placeHolder="Kategoriler"
+                        validations={this.state.validations} fieldName="ActivityCategories"
+                        setSelectedValue={value => this.setState({ event: { ...this.state.event, activityCategories: [{ categoryId: value, activityId: 0 }] } })}
+                        items={this.state.categories} />
+                </View>
+                <View style={{ flexDirection: 'column', flex: 1, justifyContent: 'flex-end' }}>
+                    <Button onPress={this.saveEvent} loading={this.state.loading} color="black" />
+                </View>
+
+            </View >
         )
     }
 }

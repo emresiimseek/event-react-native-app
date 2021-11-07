@@ -36,8 +36,9 @@ class HomePage extends Component {
                 title: 'BeSocial',
                 tabBarShowLabel: false,
             })}  >
-                <Tab.Screen name="Flow" component={FlowPage} />
                 <Tab.Screen name="NewEvent" component={NewEventPage} />
+
+                <Tab.Screen name="Flow" component={FlowPage} />
                 <Tab.Screen name="Profile" component={ProfilePage} />
 
             </Tab.Navigator >
