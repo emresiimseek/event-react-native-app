@@ -26,7 +26,6 @@ export default function App() {
               headerTitleAlign: "center",
               title: 'BeSocial',
             }} />
-
           <Stack.Screen name="Home" component={HomePage}
             options={{
               headerStyle: { backgroundColor: '#00000050' },
@@ -36,9 +35,12 @@ export default function App() {
               title: 'Ana Sayfa',
             }} />
 
+          <Stack.Screen name="NewEvent" component={NewEventPage} />
+
+
+
           <Stack.Screen name="Flow" component={FlowPage} />
           <Stack.Screen name="Profile" component={ProfilePage} />
-          <Stack.Screen name="NewEvent" component={NewEventPage} />
 
           <Stack.Screen name="Login" component={LoginPage}
             options={{

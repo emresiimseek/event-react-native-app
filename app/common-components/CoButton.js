@@ -1,10 +1,13 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 function Button(props) {
-    const { text = "Kaydet", onPress, width = 100, color = "blue", padding = 10, loading = false } = props;
+    const { text = "Kaydet", onPress, width = 100, color = "blue", padding = 10, loading = false, icon = "" } = props;
 
     return (
+
         <TouchableOpacity
             onPress={onPress}
             disabled={loading}
@@ -21,7 +24,11 @@ function Button(props) {
             }}
         >
 
-            {loading ? <ActivityIndicator size="small" color="white" /> : <Text style={styles.text}>{text}</Text>}
+            {loading ? <ActivityIndicator size="small" color="white" /> :
+                <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+                    <Icon name={icon} size={20} color="white" style={{ marginRight: 5 }} />
+                    <Text style={styles.text}>{text} </Text>
+                </View>}
         </TouchableOpacity >
     );
 }
@@ -29,7 +36,8 @@ function Button(props) {
 const styles = StyleSheet.create({
 
     text: {
-        color: "white"
+        color: "white",
+
     }
 })
 

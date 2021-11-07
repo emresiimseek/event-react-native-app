@@ -13,7 +13,6 @@ class BaseComponent extends Component {
 
         const result = await request();
 
-        console.log(result?.errors?.response?.data?.errors);
 
         this.setState({ validations: result?.errors?.response?.data?.errors ?? {} });
 
@@ -21,7 +20,7 @@ class BaseComponent extends Component {
 
         this.setState({ loading: false });
 
-        return result?.errors ? undefined : result.data;
+        return result?.errors ? undefined : result?.data;
     }
 
 

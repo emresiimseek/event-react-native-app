@@ -1,42 +1,13 @@
 import React, { Component } from 'react'
 import { StyleSheet, TextInput, View, Text } from 'react-native';
-
-
-const setValidationItems = (values, fieldName, labelName) => {
-    let items = [];
-
-    for (const key in values) {
-        if (key == fieldName) {
-            const data = values[key];
-            items = data.map((d) => {
-                const firstIndex = d.indexOf("'");
-                const lastIndex = d.lastIndexOf("'");
-                const value = d.slice(firstIndex + 1, lastIndex);
-                return d.replace(value, labelName);
-            });
-        }
-    }
-    return items;
-
-}
-
-const ValidationList = ({ validations, fieldName, labelName }) => {
-    const values = setValidationItems(validations, fieldName, labelName);
-
-    if (values.length) {
-        return values.map(value => <Text style={{
-            backgroundColor: "red", color: "white", marginBottom: 3, borderRadius: 5, padding: 3
-        }} key={value}>{value}</Text>);
-    }
-    else return <View style={{ margin: 0, padding: 0 }}></View>
-}
+import ValidationList from "../common-components/ValidationList";
 
 
 class FormInput extends Component {
 
 
     render() {
-        const { value, onChangeText, placeholder, validations = [], fieldName, secureTextEntry = false } = this.props;
+        const { value, onChangeText, placeholder, validations = [], fieldName, secureTextEntry = false, disabled } = this.props;
 
         return (
 
@@ -46,8 +17,10 @@ class FormInput extends Component {
                     onChangeText={onChangeText}
                     placeholder={placeholder}
                     secureTextEntry={secureTextEntry}
+                    editable={!disabled}
+                    selectTextOnFocus={!disabled}
                 />
-                <ValidationList validations={validations} fieldName={fieldName} labelName={placeholder} />
+                <ValidationList validations={validations} fieldName={fieldName} placeHolder={placeholder} />
             </View>
 
 
