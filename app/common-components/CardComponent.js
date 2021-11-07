@@ -45,28 +45,24 @@ class CardComponent extends Component {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        marginTop: 10,
         borderColor: "#D3D3D3",
-        borderWidth: 1,
-        borderRadius: 5,
+        borderBottomWidth: 1,
         flexDirection: 'column',
-        minHeight: 300,
-        margin: 10,
+        minHeight: 500,
     },
     header: {
-        flex: 0.2,
+        flex: 0.3,
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',
     },
     body: {
         marginTop: 5,
-        flex: 2,
+        flex: 4,
         borderTopColor: "#D3D3D3",
         borderTopWidth: 1,
     },
     footer: {
-        flex: 0.3,
         borderTopColor: "#D3D3D3",
         borderTopWidth: 1,
         padding: 10,

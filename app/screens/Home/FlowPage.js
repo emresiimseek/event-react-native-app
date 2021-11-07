@@ -5,6 +5,9 @@ import CardComponent from "../../common-components/CardComponent";
 import CardList from "../../common-components/CardList";
 import Loading from "../../common-components/Loading";
 import { eventLogic } from "../../logic/event-logic";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 
 class FlowPage extends BaseComponent {
@@ -18,7 +21,11 @@ class FlowPage extends BaseComponent {
     }
 
     getEvents = async () => {
-        const result = await this.handleRequest(() => eventLogic.getEvents());
+
+        const user = JSON.parse(await AsyncStorage.getItem("user"));
+
+        const result = await this.handleRequest(() => eventLogic.getEvents(user.id));
+
         if (result.length) {
             this.setState({ events: result })
         }
