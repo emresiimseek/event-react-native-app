@@ -68,7 +68,11 @@ class HomePage extends Component {
         <Tab.Screen name="Flow" component={FlowPage} />
         <Tab.Screen name="Search" component={SearchPage} />
         <Tab.Screen name="NewEvent" component={NewEventPage} />
-        <Tab.Screen name="Profile" component={ProfilePage} />
+        <Tab.Screen
+          name="Profile"
+          component={ProfilePage}
+          navigation={this.props.navigation}
+        />
       </Tab.Navigator>
     );
   }

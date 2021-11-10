@@ -12,12 +12,13 @@ import HomePage from "./app/screens/Home/HomePage";
 import FlowPage from "./app/screens/Home/FlowPage";
 import ProfilePage from "./app/screens/Home/ProfilePage";
 import NewEventPage from "./app/screens/Home/NewEventPage";
+import { navigationRef } from "./app/RootNavigation";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <React.Fragment>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator initialRouteName={HomePage}>
           <Stack.Screen
             name="Home"

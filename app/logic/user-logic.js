@@ -11,6 +11,9 @@ class UserLogic {
   };
 
   getUser = (userId) => apiBase.getRequest("users/" + userId);
+
+  search = (search, uid) =>
+    apiBase.postRequest("users/SearchUser", search, uid);
 }
 
 export const userLogic = new UserLogic();

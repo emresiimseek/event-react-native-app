@@ -25,7 +25,7 @@ class FlowPage extends BaseComponent {
       eventLogic.getEvents(user?.id ?? 1)
     );
 
-    if (result.length) {
+    if (result?.length) {
       this.setState({ events: result });
     }
   };
