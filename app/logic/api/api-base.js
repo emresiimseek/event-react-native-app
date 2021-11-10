@@ -3,6 +3,7 @@ import axios from "axios";
 class ApiBase {
   cancelTokenSource = null;
   baseUrl = "http://10.0.2.2:52264/api/";
+  // baseUrl = "http://localhost:52264/api/";
 
   conduitApi = axios.create({
     baseURL: this.baseUrl,
