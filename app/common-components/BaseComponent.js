@@ -1,42 +1,34 @@
-import React, { Component } from 'react'
-import Toast from 'react-native-toast-message';
-
-
+import React, { Component } from "react";
+import Toast from "react-native-toast-message";
 
 class BaseComponent extends Component {
+  baseState = { loading: false, validations: {} };
 
-    baseState = { loading: false, validations: {} }
+  async handleRequest(request) {
+    this.setState({ loading: true });
 
-    async handleRequest(request) {
+    const result = await request();
 
-        this.setState({ loading: true });
+    this.setState({
+      validations: result?.errors?.response?.data?.errors ?? {},
+    });
 
-        const result = await request();
-
-
-        this.setState({ validations: result?.errors?.response?.data?.errors ?? {} });
-
-        if (result.errors && !this.state.validations) {
-            Toast.show({
-                type: 'error',
-                text1: "Bir şeyler ters gitti.",
-                position: "bottom"
-            });
-        }
-
-        this.setState({ loading: false });
-
-        return result?.errors ? undefined : result?.data;
+    if (result?.errors && !this.state.validations) {
+      Toast.show({
+        type: "error",
+        text1: "Bir şeyler ters gitti.",
+        position: "bottom",
+      });
     }
 
+    this.setState({ loading: false });
 
-    render() {
-        return (
-            <div>
+    return result?.errors ? undefined : result?.data;
+  }
 
-            </div>
-        )
-    }
+  render() {
+    return <div></div>;
+  }
 }
 
-export default BaseComponent
+export default BaseComponent;

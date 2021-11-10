@@ -101,15 +101,14 @@ export default class NewEventPage extends BaseComponent {
       <View
         style={{
           backgroundColor: "white",
-          padding: 5,
-          margin: 5,
+          padding: 20,
           borderRadius: 5,
           height: "100%",
         }}
       >
         <View style={{ flex: 1 }}>
           <Text
-            style={{ textAlign: "center", fontWeight: "bold", fontSize: 15 }}
+            style={{ textAlign: "center", fontWeight: "bold", fontSize: 18 }}
           >
             Etlinlik Oluştur
           </Text>
