@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import * as RootNavigation from "../../RootNavigation.js";
 
 export default function ProfileHeader(props) {
-  const { user, eventCount } = props;
+  const { user, eventCount, currentUserId } = props;
+
   return (
     <View
       style={{
@@ -19,6 +21,12 @@ export default function ProfileHeader(props) {
         >
           {user?.userName}
         </Text>
+        <Icon
+          onPress={() => RootNavigation.navigate("Welcome")}
+          name="sign-out-alt"
+          size={20}
+          style={{ marginRight: 5, padding: 10 }}
+        />
         <Icon name="bars" size={20} style={{ marginRight: 5, padding: 10 }} />
       </View>
       <View
@@ -38,7 +46,7 @@ export default function ProfileHeader(props) {
           }}
         >
           <Icon
-            name="user"
+            name="user-circle"
             size={50}
             style={{
               padding: 15,
@@ -64,17 +72,19 @@ export default function ProfileHeader(props) {
             <Text>Takipçi:{user.areFirendsWithMe.length}</Text>
             <Text>Takip:{user.iAmFriendsWith.length}</Text>
           </View>
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "space-evenly",
-              flexDirection: "row",
-              marginTop: 10,
-            }}
-          >
-            <Icon.Button name="user-plus">Takip Et</Icon.Button>
-            <Icon.Button name="envelope">Mesaj</Icon.Button>
-          </View>
+          {user.id == props?.currentUserId && (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                flexDirection: "row",
+                marginTop: 10,
+              }}
+            >
+              <Icon.Button name="user-plus">Takip Et</Icon.Button>
+              <Icon.Button name="envelope">Mesaj</Icon.Button>
+            </View>
+          )}
         </View>
       </View>
     </View>
