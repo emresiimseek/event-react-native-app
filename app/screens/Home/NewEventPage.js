@@ -54,7 +54,7 @@ export default class NewEventPage extends BaseComponent {
         ...this.state.event,
         userActivities: [
           {
-            userId: user.id,
+            userId: user.id ?? 1,
             activityId: 0,
           },
         ],

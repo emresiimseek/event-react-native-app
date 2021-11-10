@@ -12,8 +12,7 @@ export default class ProfilePage extends BaseComponent {
 
   getUser = async () => {
     const result = await this.handleRequest(() => userLogic.getUser(1));
-
-    this.setState({ user: { result } });
+    this.setState({ user: result });
   };
 
   getUserAvtivites = async () => {
@@ -31,8 +30,13 @@ export default class ProfilePage extends BaseComponent {
 
   render() {
     return (
-      <ScrollView>
-        <ProfileHeader />
+      <ScrollView style={{ margin: 10 }}>
+        {this.state.user && (
+          <ProfileHeader
+            user={this.state.user}
+            eventCount={this.state.events.length}
+          />
+        )}
         <CardList events={this.state.events} />
       </ScrollView>
     );

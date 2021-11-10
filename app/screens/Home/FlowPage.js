@@ -22,7 +22,7 @@ class FlowPage extends BaseComponent {
 
     // will delete
     const result = await this.handleRequest(() =>
-      eventLogic.getEvents(user.id ?? 1)
+      eventLogic.getEvents(user?.id ?? 1)
     );
 
     if (result.length) {

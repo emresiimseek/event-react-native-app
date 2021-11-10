@@ -3,6 +3,7 @@ import "moment/locale/tr";
 import React, { Component } from "react";
 import { Button, ImageBackground, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 class CardComponent extends Component {
   state = {};
@@ -50,29 +51,52 @@ class CardComponent extends Component {
           />
         </View>
         <View style={styles.footer}>
-          <View style={{ flex: 1, justifyContent: "space-around" }}>
-            <Text style={{ fontWeight: "bold" }}>{event.activityTitle}</Text>
-            <Text style={{ fontSize: 10 }}>
-              <Icon name="users" size={15} /> 15 Kişi Katılıyor
-            </Text>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <FontAwesome5
+                style={{ marginRight: 10 }}
+                name="heart"
+                size={20}
+              />
+              <FontAwesome5
+                style={{ marginRight: 10 }}
+                name="comment"
+                size={20}
+              />
+              <FontAwesome5
+                style={{ marginRight: 10 }}
+                name="envelope-open-text"
+                size={20}
+              />
+            </View>
+            <View>
+              <Text style={{ fontSize: 10 }}>
+                <Icon name="users" size={15} /> 15 Kişi Katılıyor
+              </Text>
+            </View>
           </View>
           <View
             style={{
-              flexDirection: "column",
-              justifyContent: "space-around",
-              alignItems: "flex-end",
+              flex: 1,
+              flexDirection: "row",
+              marginTop: 5,
             }}
           >
-            <Text>
-              {moment(event.activityDate).format("LLL")}{" "}
-              <Icon name="calendar" />
+            <Text style={{ fontWeight: "bold", flex: 1 }}>
+              {event.activityTitle}
             </Text>
-            <Text>
-              {event.categories.map((cat) => (
-                <Text key={cat.id}>{cat.title}</Text>
-              ))}{" "}
-              <Icon name="tag" />
-            </Text>
+            <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
+              <Text>
+                {moment(event.activityDate).format("LLL")}{" "}
+                <Icon name="calendar" />
+              </Text>
+              <Text style={{ flex: 1 }}>
+                {event.categories.map((cat) => (
+                  <Text key={cat.id}>{cat.title}</Text>
+                ))}{" "}
+                <Icon name="tag" />
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -104,7 +128,7 @@ const styles = StyleSheet.create({
     borderTopColor: "#D3D3D3",
     borderTopWidth: 1,
     padding: 10,
-    flexDirection: "row",
+    flexDirection: "column",
   },
 });
 

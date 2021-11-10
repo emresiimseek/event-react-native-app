@@ -2,7 +2,8 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-export default function ProfileHeader() {
+export default function ProfileHeader(props) {
+  const { user, eventCount } = props;
   return (
     <View
       style={{
@@ -16,7 +17,7 @@ export default function ProfileHeader() {
         <Text
           style={{ padding: 10, fontSize: 15, fontWeight: "bold", flex: 1 }}
         >
-          emresimsekm
+          {user?.userName}
         </Text>
         <Icon name="bars" size={20} style={{ marginRight: 5, padding: 10 }} />
       </View>
@@ -43,7 +44,9 @@ export default function ProfileHeader() {
               padding: 15,
             }}
           />
-          <Text>Emre Simsek</Text>
+          <Text
+            style={{ textTransform: "capitalize" }}
+          >{`${user.firstName} ${user.lastName}`}</Text>
         </View>
         <View
           style={{
@@ -57,9 +60,9 @@ export default function ProfileHeader() {
               justifyContent: "space-around",
             }}
           >
-            <Text>Etkinlik:5</Text>
-            <Text>Takipçi:15</Text>
-            <Text>Takip:10</Text>
+            <Text>Etkinlik:{eventCount}</Text>
+            <Text>Takipçi:{user.areFirendsWithMe.length}</Text>
+            <Text>Takip:{user.iAmFriendsWith.length}</Text>
           </View>
           <View
             style={{
