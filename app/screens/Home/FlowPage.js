@@ -14,7 +14,12 @@ class FlowPage extends BaseComponent {
   }
 
   componentDidMount() {
-    this.getEvents();
+    this.willFocusSubscription = this.props.navigation.addListener(
+      "focus",
+      () => {
+        this.getEvents();
+      }
+    );
   }
 
   getEvents = async () => {
@@ -34,7 +39,6 @@ class FlowPage extends BaseComponent {
     return (
       <View style={{ backgroundColor: "white" }}>
         {this.state.loading && <Loading />}
-
         <CardList events={this.state.events} />
       </View>
     );
