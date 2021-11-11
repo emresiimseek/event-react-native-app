@@ -32,7 +32,6 @@ export default function ProfileHeader(props) {
       <View
         style={{
           flexDirection: "row",
-          padding: 15,
         }}
       >
         <View
@@ -52,9 +51,6 @@ export default function ProfileHeader(props) {
               padding: 15,
             }}
           />
-          <Text
-            style={{ textTransform: "capitalize" }}
-          >{`${user.firstName} ${user.lastName}`}</Text>
         </View>
         <View
           style={{
@@ -72,7 +68,7 @@ export default function ProfileHeader(props) {
             <Text>Takipçi:{user.areFirendsWithMe.length}</Text>
             <Text>Takip:{user.iAmFriendsWith.length}</Text>
           </View>
-          {user.id == props?.currentUserId && (
+          {user.id != props?.currentUserId && (
             <View
               style={{
                 alignItems: "center",
@@ -87,6 +83,15 @@ export default function ProfileHeader(props) {
           )}
         </View>
       </View>
+      <Text
+        style={{
+          textTransform: "capitalize",
+          paddingBottom: 15,
+          paddingLeft: 10,
+        }}
+      >
+        {user.firstName + " " + user.lastName}
+      </Text>
     </View>
   );
 }
