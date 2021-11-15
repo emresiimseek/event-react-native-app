@@ -6,6 +6,7 @@ import ProfilePage from "./ProfilePage";
 import NewEventPage from "./NewEventPage";
 import { Pressable, TouchableOpacity } from "react-native";
 import SearchPage from "./SearchPage";
+import VisitedUserProfilePage from "./VisitedUserProfilePage";
 const Tab = createBottomTabNavigator();
 
 // rnc
@@ -68,11 +69,15 @@ class HomePage extends Component {
         <Tab.Screen name="Flow" component={FlowPage} />
         <Tab.Screen name="Search" component={SearchPage} />
         <Tab.Screen name="NewEvent" component={NewEventPage} />
-        <Tab.Screen
-          name="Profile"
-          component={ProfilePage}
-          navigation={this.props.navigation}
-        />
+        {/* <Tab.Screen
+          options={{
+            tabBarButton: () => null,
+            tabBarVisible: false, // if you don't want to see the tab bar
+          }}
+          name="VisitedProfile"
+          component={VisitedUserProfilePage}
+        /> */}
+        <Tab.Screen name="Profile" component={ProfilePage} />
       </Tab.Navigator>
     );
   }
