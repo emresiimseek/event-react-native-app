@@ -9,7 +9,7 @@ import { eventLogic } from "../../logic/event-logic";
 import { userLogic } from "../../logic/user-logic";
 import ProfileHeader from "./ProfileHeader";
 
-export default class ProfilePage extends BaseComponent {
+export default class VisitedUserProfilePage extends BaseComponent {
   state = {
     currentUser: undefined,
     visitedUser: undefined,
@@ -36,7 +36,7 @@ export default class ProfilePage extends BaseComponent {
 
   getUserAvtivites = async () => {
     const result = await this.handleRequest(() =>
-      eventLogic.getUserWithActivities(this.state.myUserId)
+      eventLogic.getUserWithActivities(this.state.visitedUser.id)
     );
 
     this.setState({ events: result });
@@ -63,14 +63,39 @@ export default class ProfilePage extends BaseComponent {
     );
   }
 
+  followUser = async () => {
+    await this.handleRequest(() =>
+      userLogic.follow({
+        userParentId: this.state.myUserId,
+        userChildId: this.state.visitedUser.id,
+      })
+    );
+    await this.get();
+    this.forceUpdate();
+  };
+
+  unFollowUser = async () => {
+    await this.handleRequest(() =>
+      userLogic.unFollow({
+        userParentId: this.state.myUserId,
+        userChildId: this.state.visitedUser.id,
+      })
+    );
+
+    await this.get();
+    this.forceUpdate();
+  };
+
   render() {
     return (
       <ScrollView>
-        {this.state.currentUser && (
+        {this.state.visitedUser && (
           <ProfileHeader
-            user={this.state.currentUser}
+            user={this.state.visitedUser}
             eventCount={this.state.events.length}
             currentUser={this.state.currentUser}
+            followClicked={() => this.followUser()}
+            unFollowClicked={() => this.unFollowUser()}
           />
         )}
 

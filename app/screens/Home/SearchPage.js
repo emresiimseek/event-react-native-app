@@ -4,40 +4,36 @@ import { SearchBar } from "react-native-elements";
 import BaseComponent from "../../common-components/BaseComponent";
 import { userLogic } from "../../logic/user-logic";
 import SearchList from "./SearchList";
-import { v4 as uuidv4 } from "uuid";
+import SearchDetailPage from "./SearchDetailPage";
+import VisitedUserProfilePage from "./VisitedUserProfilePage";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const Tab = createBottomTabNavigator();
 
 export default class SearchPage extends BaseComponent {
-  state = { search: "", users: [], ...this.baseState };
-
-  updateSearch = (search) => {
-    this.setState({ search });
-    this.getUser();
-  };
-
-  getUser = async () => {
-    const result = await this.handleRequest(() =>
-      userLogic.search(this.state.search, uuidv4())
-    );
-
-    this.setState({ users: result });
-  };
-
   render() {
     return (
-      <View>
-        <SearchBar
-          placeholder="Type Here..."
-          onChangeText={this.updateSearch}
-          lightTheme
-          platform={Platform.OS == "ios" ? "ios" : "android"}
-          value={this.state.search}
-          showLoading={this.state.loading}
-          loadingProps={{
-            color: "black",
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarStyle: { height: 0, width: 0, display: "none" },
+          headerShown: false,
+        })}
+      >
+        <Tab.Screen
+          name="SearchDetail"
+          options={{
+            tabBarVisible: false,
           }}
+          component={SearchDetailPage}
         />
-        <SearchList users={this.state.users} />
-      </View>
+        <Tab.Screen
+          name="VisitedProfile"
+          options={{
+            tabBarVisible: false,
+          }}
+          component={VisitedUserProfilePage}
+        />
+      </Tab.Navigator>
     );
   }
 }

@@ -14,6 +14,14 @@ class UserLogic {
 
   search = (search, uid) =>
     apiBase.postRequest("users/SearchUser", search, uid);
+
+  follow(userUser) {
+    return apiBase.postRequest("users/AddFriend", userUser);
+  }
+
+  unFollow(userUser) {
+    return apiBase.postRequest("users/RemoveFriend", userUser);
+  }
 }
 
 export const userLogic = new UserLogic();

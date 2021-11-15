@@ -12,7 +12,9 @@ export default class SearchList extends BaseComponent {
       <View style={{ marginTop: 10 }}>
         {this.props?.users?.map((l, i) => (
           <ListItem
-            onPress={() => RootNavigation.navigate("Profile", { userId: l.id })}
+            onPress={() =>
+              RootNavigation.navigate("VisitedProfile", { visitedUserId: l.id })
+            }
             key={i}
             bottomDivider
           >

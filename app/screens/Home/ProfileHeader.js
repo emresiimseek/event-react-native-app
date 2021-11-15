@@ -1,10 +1,21 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import BaseComponent from "../../common-components/BaseComponent.js";
+import { userLogic } from "../../logic/user-logic.js";
 import * as RootNavigation from "../../RootNavigation.js";
 
 export default function ProfileHeader(props) {
-  const { user, eventCount, currentUserId } = props;
+  const { user, eventCount, currentUser, followClicked, unFollowClicked } =
+    props;
+
+  const emitFollow = () => {
+    followClicked();
+  };
+
+  const emitUnFollow = () => {
+    unFollowClicked();
+  };
 
   return (
     <View
@@ -40,7 +51,7 @@ export default function ProfileHeader(props) {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            height: 100,
+            height: 80,
             marginRight: 10,
           }}
         >
@@ -62,13 +73,18 @@ export default function ProfileHeader(props) {
             style={{
               flexDirection: "row",
               justifyContent: "space-around",
+              marginTop: 20,
             }}
           >
-            <Text>Etkinlik:{eventCount}</Text>
-            <Text>Takipçi:{user.areFirendsWithMe.length}</Text>
-            <Text>Takip:{user.iAmFriendsWith.length}</Text>
+            <Text style={{ fontWeight: "bold" }}>Etkinlik:{eventCount}</Text>
+            <Text style={{ fontWeight: "bold" }}>
+              Takipçi:{user?.areFirendsWithMe?.length}
+            </Text>
+            <Text style={{ fontWeight: "bold" }}>
+              Takip:{user?.iAmFriendsWith?.length}
+            </Text>
           </View>
-          {user.id != props?.currentUserId && (
+          {user?.id != props?.currentUser?.id && (
             <View
               style={{
                 alignItems: "center",
@@ -77,7 +93,17 @@ export default function ProfileHeader(props) {
                 marginTop: 10,
               }}
             >
-              <Icon.Button name="user-plus">Takip Et</Icon.Button>
+              {currentUser?.iAmFriendsWith.some(
+                (u) => u.userChildId == user?.id
+              ) ? (
+                <Icon.Button onPress={() => emitUnFollow()} name="user-minus">
+                  Takip Çık
+                </Icon.Button>
+              ) : (
+                <Icon.Button onPress={() => emitFollow()} name="user-plus">
+                  Takip Et
+                </Icon.Button>
+              )}
               <Icon.Button name="envelope">Mesaj</Icon.Button>
             </View>
           )}
