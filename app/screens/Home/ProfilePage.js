@@ -1,10 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { Component } from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import React from "react";
+import { StyleSheet } from "react-native";
 import BaseComponent from "../../common-components/BaseComponent";
 import CardList from "../../common-components/CardList";
-import Loading from "../../common-components/Loading";
+import Page from "../../common-components/Page";
 import { eventLogic } from "../../logic/event-logic";
 import { userLogic } from "../../logic/user-logic";
 import ProfileHeader from "./ProfileHeader";
@@ -55,17 +54,16 @@ export default class ProfilePage extends BaseComponent {
   }
 
   componentDidMount() {
-    this.willFocusSubscription = this.props.navigation.addListener(
-      "focus",
-      () => {
-        this.get();
-      }
-    );
+    // this.willFocusSubscription = this.props.navigation.addListener(
+    //   "focus",
+    //   () => {}
+    // );
+    this.get();
   }
 
   render() {
     return (
-      <ScrollView>
+      <Page loading={this.state.loading} onRefresh={() => this.get()}>
         {this.state.currentUser && (
           <ProfileHeader
             user={this.state.currentUser}
@@ -73,11 +71,8 @@ export default class ProfilePage extends BaseComponent {
             currentUser={this.state.currentUser}
           />
         )}
-
-        {this.state.loading && <Loading />}
-
         <CardList events={this.state.events} />
-      </ScrollView>
+      </Page>
     );
   }
 }

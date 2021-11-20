@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import BaseComponent from "../../common-components/BaseComponent";
-import { userLogic } from "../../logic/user-logic";
 import { ListItem, Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as RootNavigation from "../../RootNavigation.js";

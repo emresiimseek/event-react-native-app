@@ -1,17 +1,20 @@
-import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import React, { Component } from "react";
+import BaseComponent from "./BaseComponent";
 import CardComponent from "./CardComponent";
+import Page from "./Page";
 
-export default function CardList(props) {
-  const { events } = props;
+export default class CardList extends BaseComponent {
+  state = { ...this.baseState };
 
-  return (
-    <React.Fragment>
-      <ScrollView>
-        {events?.map((event, i) => (
-          <CardComponent event={event} key={i} />
-        ))}
-      </ScrollView>
-    </React.Fragment>
-  );
+  render() {
+    return (
+      <React.Fragment>
+        <Page loading={this.props.loading} onRefresh={this.props.onRefresh}>
+          {this.props.events?.map((event, i) => (
+            <CardComponent event={event} key={i} />
+          ))}
+        </Page>
+      </React.Fragment>
+    );
+  }
 }

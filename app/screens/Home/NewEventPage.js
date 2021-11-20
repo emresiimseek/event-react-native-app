@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { Text, StyleSheet, View, Alert } from "react-native";
 import Toast from "react-native-toast-message";
-import Icon from "react-native-vector-icons/FontAwesome";
 import BaseComponent from "../../common-components/BaseComponent";
 import Button from "../../common-components/CoButton";
 import DatePicker from "../../common-components/DatePicker";
