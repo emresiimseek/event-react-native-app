@@ -1,19 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { Component } from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import React from "react";
+import { StyleSheet } from "react-native";
 import BaseComponent from "../../common-components/BaseComponent";
 import CardList from "../../common-components/CardList";
-import Loading from "../../common-components/Loading";
+import Page from "../../common-components/Page";
 import { eventLogic } from "../../logic/event-logic";
 import { userLogic } from "../../logic/user-logic";
 import ProfileHeader from "./ProfileHeader";
 
 export default class VisitedUserProfilePage extends BaseComponent {
   state = {
-    currentUser: undefined,
-    visitedUser: undefined,
-    myUserId: undefined,
+    currentUser: null,
+    visitedUser: null,
+    myUserId: null,
     events: [],
     ...this.baseState,
   };
@@ -49,10 +48,10 @@ export default class VisitedUserProfilePage extends BaseComponent {
     await this.getUserAvtivites();
   };
 
-  setCurrentUser() {
+  setCurrentUser = () => {
     const user = () => JSON.parse(AsyncStorage.getItem("user"));
     this.setState({ myUserId: 1 });
-  }
+  };
 
   componentDidMount() {
     this.willFocusSubscription = this.props.navigation.addListener(
@@ -88,21 +87,20 @@ export default class VisitedUserProfilePage extends BaseComponent {
 
   render() {
     return (
-      <ScrollView>
+      <Page loading={this.state.loading} onRefresh={this.get}>
         {this.state.visitedUser && (
           <ProfileHeader
             user={this.state.visitedUser}
             eventCount={this.state.events.length}
             currentUser={this.state.currentUser}
-            followClicked={() => this.followUser()}
-            unFollowClicked={() => this.unFollowUser()}
+            followClicked={() => this.followUser}
+            unFollowClicked={() => this.unFollowUser}
+            isVisibleBack={true}
           />
         )}
 
-        {this.state.loading && <Loading />}
-
         <CardList events={this.state.events} />
-      </ScrollView>
+      </Page>
     );
   }
 }

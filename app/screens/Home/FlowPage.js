@@ -1,9 +1,7 @@
-import React, { Component } from "react";
-import { ActivityIndicator, Button, ScrollView, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import BaseComponent from "../../common-components/BaseComponent";
-import CardComponent from "../../common-components/CardComponent";
 import CardList from "../../common-components/CardList";
-import Loading from "../../common-components/Loading";
 import { eventLogic } from "../../logic/event-logic";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -14,12 +12,11 @@ class FlowPage extends BaseComponent {
   }
 
   componentDidMount() {
-    this.willFocusSubscription = this.props.navigation.addListener(
-      "focus",
-      () => {
-        this.getEvents();
-      }
-    );
+    // this.willFocusSubscription = this.props.navigation.addListener(
+    //   "focus",
+    //   () => {}
+    // );
+    this.getEvents();
   }
 
   getEvents = async () => {
@@ -37,9 +34,12 @@ class FlowPage extends BaseComponent {
 
   render() {
     return (
-      <View style={{ backgroundColor: "white" }}>
-        {this.state.loading && <Loading />}
-        <CardList events={this.state.events} />
+      <View>
+        <CardList
+          onRefresh={() => this.getEvents()}
+          events={this.state.events}
+          loading={this.state.loading}
+        />
       </View>
     );
   }

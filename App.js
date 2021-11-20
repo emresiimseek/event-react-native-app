@@ -1,10 +1,7 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import WelcomePage from "./app/screens/WelcomePage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Button from "./app/common-components/CoButton";
 import LoginPage from "./app/screens/LoginPage";
 import SignIn from "./app/screens/SignIn";
 import Toast from "react-native-toast-message";
@@ -71,12 +68,3 @@ export default function App() {
     </React.Fragment>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

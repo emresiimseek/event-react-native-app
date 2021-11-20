@@ -35,7 +35,7 @@ export default class SearchDetailPage extends BaseComponent {
             color: "black",
           }}
         />
-        <SearchList users={this.state.users} />
+        <SearchList users={this.state.users.length ? this.state.users : []} />
       </React.Fragment>
     );
   }
