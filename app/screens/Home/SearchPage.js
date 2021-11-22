@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, Platform } from "react-native";
-import { SearchBar } from "react-native-elements";
+import { Text, StyleSheet } from "react-native";
 import BaseComponent from "../../common-components/BaseComponent";
-import { userLogic } from "../../logic/user-logic";
-import SearchList from "./SearchList";
 import SearchDetailPage from "./SearchDetailPage";
 import VisitedUserProfilePage from "./VisitedUserProfilePage";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";

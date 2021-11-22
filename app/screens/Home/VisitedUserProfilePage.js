@@ -93,8 +93,8 @@ export default class VisitedUserProfilePage extends BaseComponent {
             user={this.state.visitedUser}
             eventCount={this.state.events.length}
             currentUser={this.state.currentUser}
-            followClicked={() => this.followUser}
-            unFollowClicked={() => this.unFollowUser}
+            followClicked={() => this.followUser()}
+            unFollowClicked={() => this.unFollowUser()}
             isVisibleBack={true}
           />
         )}
