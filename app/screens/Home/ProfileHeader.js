@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import { Icon } from "react-native-elements";
+
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as RootNavigation from "../../RootNavigation.js";
 
 export default function ProfileHeader(props) {
@@ -33,7 +35,7 @@ export default function ProfileHeader(props) {
         }}
       >
         {props.isVisibleBack && (
-          <Icon
+          <FontAwesome5
             name="arrow-left"
             onPress={() => RootNavigation.navigate("SearchDetail")}
             size={25}
@@ -49,13 +51,17 @@ export default function ProfileHeader(props) {
             alignItems: "center",
           }}
         >
-          <Icon
+          <FontAwesome5
             onPress={() => RootNavigation.navigate("Welcome")}
             name="door-open"
             size={25}
             style={{ marginRight: 5, padding: 10 }}
           />
-          <Icon name="bars" size={25} style={{ marginRight: 5, padding: 10 }} />
+          <FontAwesome5
+            name="bars"
+            size={25}
+            style={{ marginRight: 5, padding: 10 }}
+          />
         </View>
       </View>
       <View style={{ backgroundColor: "white" }}>
@@ -74,13 +80,7 @@ export default function ProfileHeader(props) {
               marginRight: 10,
             }}
           >
-            <Icon
-              name="user-circle"
-              size={50}
-              style={{
-                padding: 15,
-              }}
-            />
+            <Icon reverse name="user" type="antdesign" color="gray" size={33} />
           </View>
           <View
             style={{
@@ -95,11 +95,13 @@ export default function ProfileHeader(props) {
                 marginTop: 20,
               }}
             >
-              <Text style={{ fontWeight: "bold" }}>Etkinlik:{eventCount}</Text>
-              <Text style={{ fontWeight: "bold" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                Etkinlik:{eventCount}
+              </Text>
+              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                 Takipçi:{user?.areFirendsWithMe?.length}
               </Text>
-              <Text style={{ fontWeight: "bold" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                 Takip:{user?.iAmFriendsWith?.length}
               </Text>
             </View>
@@ -115,15 +117,21 @@ export default function ProfileHeader(props) {
                 {currentUser?.iAmFriendsWith.some(
                   (u) => u.userChildId == user?.id
                 ) ? (
-                  <Icon.Button onPress={() => emitUnFollow()} name="user-minus">
+                  <FontAwesome5.Button
+                    onPress={() => emitUnFollow()}
+                    name="user-minus"
+                  >
                     Takip Çık
-                  </Icon.Button>
+                  </FontAwesome5.Button>
                 ) : (
-                  <Icon.Button onPress={() => emitFollow()} name="user-plus">
+                  <FontAwesome5.Button
+                    onPress={() => emitFollow()}
+                    name="user-plus"
+                  >
                     Takip Et
-                  </Icon.Button>
+                  </FontAwesome5.Button>
                 )}
-                <Icon.Button name="envelope">Mesaj</Icon.Button>
+                <FontAwesome5.Button name="envelope">Mesaj</FontAwesome5.Button>
               </View>
             )}
           </View>
