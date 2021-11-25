@@ -22,7 +22,10 @@ class EventLogic {
   };
 
   likeEvent = (userId, activityId) =>
-    apiBase.postRequest("activities/likeActivities", { userId, activityId });
+    apiBase.postRequest("activities/likeActivity", { userId, activityId });
+
+  unlikeEvent = (userId, activityId) =>
+    apiBase.postRequest("activities/unlikeActivity", { userId, activityId });
 
   getMainEvent = (activityId, userId) =>
     apiBase.postRequest("activities/GetEvent", { activityId, userId });

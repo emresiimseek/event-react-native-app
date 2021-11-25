@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/FontAwesome";
 import FlowPage from "./FlowPage";
 import ProfilePage from "./ProfilePage";
 import NewEventPage from "./NewEventPage";
-import { Pressable, TouchableOpacity } from "react-native";
 import SearchPage from "./SearchPage";
-import VisitedUserProfilePage from "./VisitedUserProfilePage";
+import { Icon } from "react-native-elements";
 const Tab = createBottomTabNavigator();
 
 // rnc
@@ -29,21 +27,24 @@ class HomePage extends Component {
                 <Icon
                   name="home"
                   size={30}
+                  type="antdesign"
                   color={focused ? "black" : "gray"}
-                ></Icon>
+                />
               );
             else if (route.name == "Profile")
               return (
                 <Icon
                   name="user"
-                  size={30}
+                  size={40}
+                  type="evilicon"
                   color={focused ? "black" : "gray"}
                 />
               );
             else if (route.name == "Search")
               return (
                 <Icon
-                  name="search"
+                  name="search1"
+                  type="antdesign"
                   size={30}
                   color={focused ? "black" : "gray"}
                 />
@@ -51,8 +52,9 @@ class HomePage extends Component {
             else if (route.name == "NewEvent")
               return (
                 <Icon
-                  name="plus-circle"
-                  size={30}
+                  name="create-outline"
+                  type="ionicon"
+                  size={32}
                   color={focused ? "black" : "gray"}
                 />
               );

@@ -12,6 +12,7 @@ import Button from "../common-components/CoButton";
 import moment from "moment";
 import DateUtils from "../logic/date-utils";
 import ValidationList from "../common-components/ValidationList";
+import { Icon } from "react-native-elements";
 
 export default function DatePicker(props) {
   const {
@@ -64,12 +65,14 @@ export default function DatePicker(props) {
             <FormInput placeholder={placeHolder} value={text} disabled={true} />
           </View>
           <View style={{ paddingTop: 4 }}>
-            <Button
-              icon="clock-o"
-              color="black"
-              text="Saat Seç"
-              onPress={showTimepicker}
-            />
+            <Button color="black" text="Saat Seç" onPress={showTimepicker}>
+              <Icon
+                name="clockcircleo"
+                color="white"
+                type="antdesign"
+                size={20}
+              />
+            </Button>
           </View>
         </View>
       ) : (
@@ -78,12 +81,9 @@ export default function DatePicker(props) {
             <FormInput placeholder={placeHolder} value={text} disabled={true} />
           </View>
           <View style={{ paddingTop: 4 }}>
-            <Button
-              icon="calendar"
-              color="black"
-              text="Tarih Seç"
-              onPress={showDatepicker}
-            />
+            <Button color="black" text="Tarih Seç" onPress={showDatepicker}>
+              <Icon name="calendar" color="white" type="antdesign" size={20} />
+            </Button>
           </View>
         </View>
       )}

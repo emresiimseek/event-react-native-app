@@ -30,6 +30,7 @@ class FlowPage extends BaseComponent {
     if (result?.length) {
       this.setState({ events: result });
     }
+    this.forceUpdate();
   };
 
   render() {
