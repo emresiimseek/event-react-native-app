@@ -2,25 +2,21 @@ import moment from "moment";
 import "moment/locale/tr";
 import React, { Component } from "react";
 import { Button, ImageBackground, StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { Icon } from "react-native-elements";
+import { eventLogic } from "../logic/event-logic";
+import BaseComponent from "../common-components/BaseComponent";
 
-class CardComponent extends Component {
-  state = {};
+class CardComponent extends BaseComponent {
+  state = { event: null, ...this.baseState };
+
+  likeEvent = async () => {
+    await this.handleRequest(() =>
+      eventLogic.likeEvent(1, this.props.event.activityId)
+    );
+  };
 
   render() {
     moment.locale("tr");
-    const {
-      event = {
-        userId: "",
-        userName: "",
-        userFullName: "",
-        activityDescription: "",
-        activityTitle: "",
-        categories: [],
-        activityDate: "",
-      },
-    } = this.props;
 
     return (
       <View style={styles.cardContainer}>
@@ -33,13 +29,14 @@ class CardComponent extends Component {
               alignItems: "center",
             }}
           >
-            <Icon name="user-circle" size={25} />
-            <Text style={{ marginLeft: 5 }}>{event.userName}</Text>
+            <Icon name="user" type="evilicon" size={40} />
+            <Text style={{ marginLeft: 5 }}>{this.props.event.userName}</Text>
           </View>
 
           <Icon
             name="ellipsis-v"
             style={{ marginRight: 10 }}
+            type="font-awesome-5"
             color="gray"
             size={18}
           />
@@ -53,25 +50,37 @@ class CardComponent extends Component {
         <View style={styles.footer}>
           <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1, flexDirection: "row" }}>
-              <FontAwesome5
-                style={{ marginRight: 10 }}
-                name="heart"
-                size={20}
-              />
-              <FontAwesome5
-                style={{ marginRight: 10 }}
+              {this.props.event?.usersLikes?.find((ul) => ul.userId == 1) ? (
+                <Icon
+                  name="heart"
+                  onPress={() => alert("hello")}
+                  type="font-awesome"
+                  color="red"
+                  size={20}
+                />
+              ) : (
+                <Icon
+                  style={{ marginRight: 5 }}
+                  name="heart-o"
+                  type="font-awesome"
+                  onPress={() => this.likeEvent()}
+                  onPressOut={this.props.likedEvent}
+                  size={20}
+                />
+              )}
+
+              <Icon
+                style={{ marginRight: 5, marginLeft: 5 }}
+                type="font-awesome-5"
                 name="comment"
                 size={20}
               />
-              <FontAwesome5
-                style={{ marginRight: 10 }}
-                name="envelope-open-text"
-                size={20}
-              />
+              <Icon name="paper-plane-o" type="font-awesome" size={20} />
             </View>
-            <View>
-              <Text style={{ fontSize: 10 }}>
-                <Icon name="users" size={15} /> 15 Kişi Katılıyor
+            <View style={{ flexDirection: "row" }}>
+              <Icon name="users" type="entypo" size={16} />
+              <Text style={{ fontSize: 12, marginLeft: 5 }}>
+                15 Kişi Katılıyor
               </Text>
             </View>
           </View>
@@ -83,19 +92,29 @@ class CardComponent extends Component {
             }}
           >
             <Text style={{ fontWeight: "bold", flex: 1 }}>
-              {event.activityTitle}
+              {this.props.event.activityTitle}
             </Text>
-            <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
-              <Text>
-                {moment(event.activityDate).format("LLL")}{" "}
-                <Icon name="calendar" />
-              </Text>
-              <Text style={{ flex: 1 }}>
-                {event.categories.map((cat) => (
-                  <Text key={cat.id}>{cat.title}</Text>
-                ))}{" "}
-                <Icon name="tag" />
-              </Text>
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "flex-end",
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Text>
+                  {moment(this.props.event.activityDate).format("LLL")}{" "}
+                </Text>
+                <Icon name="calendar" type="ant-design" />
+              </View>
+
+              <View style={{ flexDirection: "row" }}>
+                <Text>
+                  {this.props.event.categories?.map((cat) => (
+                    <Text key={cat.id}>{cat.title}</Text>
+                  ))}{" "}
+                </Text>
+                <Icon name="tagso" type="ant-design" />
+              </View>
             </View>
           </View>
         </View>

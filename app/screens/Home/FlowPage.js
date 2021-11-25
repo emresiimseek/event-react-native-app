@@ -39,6 +39,7 @@ class FlowPage extends BaseComponent {
           onRefresh={() => this.getEvents()}
           events={this.state.events}
           loading={this.state.loading}
+          likedEvent={() => this.getEvents()}
         />
       </View>
     );
