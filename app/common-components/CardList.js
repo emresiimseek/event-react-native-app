@@ -11,7 +11,11 @@ export default class CardList extends BaseComponent {
       <React.Fragment>
         <Page loading={this.props.loading} onRefresh={this.props.onRefresh}>
           {this.props.events?.map((event, i) => (
-            <CardComponent event={event} key={i} />
+            <CardComponent
+              event={event}
+              key={i}
+              likedEvent={this.props.likedEvent}
+            />
           ))}
         </Page>
       </React.Fragment>

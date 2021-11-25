@@ -20,6 +20,12 @@ class EventLogic {
   getUserWithActivities = (userId) => {
     return apiBase.getRequest("users/getUserWithActivities/" + userId);
   };
+
+  likeEvent = (userId, activityId) =>
+    apiBase.postRequest("activities/likeActivities", { userId, activityId });
+
+  getMainEvent = (activityId, userId) =>
+    apiBase.postRequest("activities/GetEvent", { activityId, userId });
 }
 
 export const eventLogic = new EventLogic();
