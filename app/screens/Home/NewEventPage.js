@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { Text, StyleSheet, View, Alert } from "react-native";
+import { Button, Icon } from "react-native-elements";
 import Toast from "react-native-toast-message";
 import BaseComponent from "../../common-components/BaseComponent";
-import Button from "../../common-components/CoButton";
 import DatePicker from "../../common-components/DatePicker";
 import FormInput from "../../common-components/FormInput";
 import SelectPicker from "../../common-components/SelectPicker";
@@ -167,9 +167,18 @@ export default class NewEventPage extends BaseComponent {
           }}
         >
           <Button
-            onPress={this.saveEvent}
-            loading={this.state.loading}
-            color="black"
+            onPress={() => emitUnFollow()}
+            buttonStyle={{ backgroundColor: "black" }}
+            icon={
+              <Icon
+                type="antdesign"
+                name="save"
+                size={20}
+                style={{ marginRight: 5 }}
+                color="white"
+              />
+            }
+            title="Kaydet"
           />
         </View>
       </View>

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as RootNavigation from "../../RootNavigation.js";
@@ -35,9 +35,10 @@ export default function ProfileHeader(props) {
         }}
       >
         {props.isVisibleBack && (
-          <FontAwesome5
-            name="arrow-left"
+          <Icon
+            name="arrowleft"
             onPress={() => RootNavigation.navigate("SearchDetail")}
+            type="antdesign"
             size={25}
             style={{ marginLeft: 10 }}
           />
@@ -51,16 +52,18 @@ export default function ProfileHeader(props) {
             alignItems: "center",
           }}
         >
-          <FontAwesome5
+          <Icon
+            name="logout"
             onPress={() => RootNavigation.navigate("Welcome")}
-            name="door-open"
+            type="antdesings"
             size={25}
-            style={{ marginRight: 5, padding: 10 }}
+            style={{ marginLeft: 10 }}
           />
-          <FontAwesome5
+          <Icon
             name="bars"
+            type="antdesign"
             size={25}
-            style={{ marginRight: 5, padding: 10 }}
+            style={{ marginLeft: 10, marginRight: 10 }}
           />
         </View>
       </View>
@@ -78,6 +81,7 @@ export default function ProfileHeader(props) {
               alignItems: "center",
               height: 80,
               marginRight: 10,
+              marginTop: 10,
             }}
           >
             <Icon reverse name="user" type="antdesign" color="gray" size={33} />
@@ -111,27 +115,52 @@ export default function ProfileHeader(props) {
                   alignItems: "center",
                   justifyContent: "space-evenly",
                   flexDirection: "row",
-                  marginTop: 10,
+                  marginTop: 20,
                 }}
               >
                 {currentUser?.iAmFriendsWith.some(
                   (u) => u.userChildId == user?.id
                 ) ? (
-                  <FontAwesome5.Button
+                  <Button
                     onPress={() => emitUnFollow()}
-                    name="user-minus"
-                  >
-                    Takip Çık
-                  </FontAwesome5.Button>
+                    icon={
+                      <Icon
+                        type="antdesign"
+                        name="deleteuser"
+                        size={20}
+                        style={{ marginRight: 5 }}
+                        color="white"
+                      />
+                    }
+                    title="Takipten Çık"
+                  />
                 ) : (
-                  <FontAwesome5.Button
+                  <Button
                     onPress={() => emitFollow()}
-                    name="user-plus"
-                  >
-                    Takip Et
-                  </FontAwesome5.Button>
+                    icon={
+                      <Icon
+                        type="antdesign"
+                        name="adduser"
+                        size={20}
+                        style={{ marginRight: 5 }}
+                        color="white"
+                      />
+                    }
+                    title="Takip Et"
+                  />
                 )}
-                <FontAwesome5.Button name="envelope">Mesaj</FontAwesome5.Button>
+                <Button
+                  icon={
+                    <Icon
+                      type="antdesign"
+                      name="message1"
+                      size={20}
+                      style={{ marginRight: 5 }}
+                      color="white"
+                    />
+                  }
+                  title="Mesaj"
+                />
               </View>
             )}
           </View>

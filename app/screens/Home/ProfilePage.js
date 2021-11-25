@@ -39,6 +39,7 @@ export default class ProfilePage extends BaseComponent {
     );
 
     this.setState({ events: result });
+    this.forceUpdate();
   };
 
   get = async () => {
@@ -71,7 +72,10 @@ export default class ProfilePage extends BaseComponent {
             currentUser={this.state.currentUser}
           />
         )}
-        <CardList events={this.state.events} />
+        <CardList
+          events={this.state.events}
+          likedEvent={() => this.getUserAvtivites()}
+        />
       </Page>
     );
   }

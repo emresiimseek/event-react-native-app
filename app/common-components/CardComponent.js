@@ -15,6 +15,12 @@ class CardComponent extends BaseComponent {
     );
   };
 
+  unlikeEvent = async () => {
+    await this.handleRequest(() =>
+      eventLogic.unlikeEvent(1, this.props.event.activityId)
+    );
+  };
+
   render() {
     moment.locale("tr");
 
@@ -44,31 +50,32 @@ class CardComponent extends BaseComponent {
         <View style={styles.body}>
           <ImageBackground
             style={{ width: "100%", height: "100%" }}
-            source={{ uri: "https://reactjs.org/logo-og.png" }}
+            source={{ uri: "https://picsum.photos/500/500" }}
           />
         </View>
         <View style={styles.footer}>
           <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1, flexDirection: "row" }}>
-              {this.props.event?.usersLikes?.find((ul) => ul.userId == 1) ? (
-                <Icon
-                  name="heart"
-                  onPress={() => alert("hello")}
-                  type="font-awesome"
-                  color="red"
-                  size={20}
-                />
-              ) : (
-                <Icon
-                  style={{ marginRight: 5 }}
-                  name="heart-o"
-                  type="font-awesome"
-                  onPress={() => this.likeEvent()}
-                  onPressOut={this.props.likedEvent}
-                  size={20}
-                />
-              )}
-
+              <Icon
+                name={
+                  this.props?.event?.usersLikes?.find((ul) => ul.userId == 1)
+                    ? "heart"
+                    : "heart-o"
+                }
+                onPress={() => {
+                  this.props?.event?.usersLikes?.find((ul) => ul.userId == 1)
+                    ? this.unlikeEvent()
+                    : this.likeEvent();
+                }}
+                type="font-awesome"
+                color={
+                  this.props?.event?.usersLikes?.find((ul) => ul.userId == 1)
+                    ? "red"
+                    : "black"
+                }
+                onPressOut={this.props.likedEvent}
+                size={20}
+              />
               <Icon
                 style={{ marginRight: 5, marginLeft: 5 }}
                 type="font-awesome-5"
