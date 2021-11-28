@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { Text, StyleSheet, View, Alert } from "react-native";
+import { Text, StyleSheet, View, Alert, ScrollView } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import Toast from "react-native-toast-message";
 import BaseComponent from "../../common-components/BaseComponent";
@@ -97,78 +97,73 @@ export default class NewEventPage extends BaseComponent {
 
   render() {
     return (
-      <View
-        style={{
-          backgroundColor: "white",
-          padding: 20,
-          borderRadius: 5,
-          height: "100%",
-        }}
-      >
-        <View style={{ flex: 1 }}>
-          <Text
-            style={{ textAlign: "center", fontWeight: "bold", fontSize: 18 }}
-          >
-            Etlinlik Oluştur
-          </Text>
-          <FormInput
-            placeholder="Başlık"
-            onChangeText={(title) =>
-              this.setState({ event: { ...this.state.event, title } })
-            }
-            value={this.state.event.title}
-            validations={this.state.validations}
-            fieldName="Title"
-          />
-
-          <FormInput
-            onChangeText={(description) =>
-              this.setState({
-                event: { ...this.state.event, description },
-              })
-            }
-            placeholder="Açıklama"
-            value={this.state.event.description}
-            validations={this.state.validations}
-            fieldName="Description"
-          />
-
-          <DatePicker
-            type="date"
-            dateSelected={this.setDate}
-            validations={this.state.validations}
-            fieldName="EventDate"
-            placeHolder="Tarih"
-          />
-
-          <DatePicker
-            type="time"
-            dateSelected={this.setTime}
-            validations={this.state.validations}
-            fieldName="EventDate"
-            placeHolder="Saat"
-          />
-          <SelectPicker
-            selectedValue={this.state.selectedCategoryId}
-            placeHolder="Kategoriler"
-            validations={this.state.validations}
-            fieldName="ActivityCategories"
-            setSelectedValue={(selectedCategoryId) =>
-              this.setState({ selectedCategoryId })
-            }
-            items={this.state.categories}
-          />
-        </View>
+      <ScrollView>
         <View
           style={{
-            flexDirection: "column",
-            flex: 1,
-            justifyContent: "flex-end",
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 5,
+            height: "100%",
           }}
         >
+          <View style={{ flex: 1 }}>
+            <Text
+              style={{ textAlign: "center", fontWeight: "bold", fontSize: 18 }}
+            >
+              Etlinlik Oluştur
+            </Text>
+            <FormInput
+              placeholder="Başlık"
+              onChangeText={(title) =>
+                this.setState({ event: { ...this.state.event, title } })
+              }
+              value={this.state.event.title}
+              validations={this.state.validations}
+              fieldName="Title"
+            />
+
+            <FormInput
+              onChangeText={(description) =>
+                this.setState({
+                  event: { ...this.state.event, description },
+                })
+              }
+              placeholder="Açıklama"
+              value={this.state.event.description}
+              validations={this.state.validations}
+              fieldName="Description"
+            />
+
+            <DatePicker
+              type="date"
+              dateSelected={this.setDate}
+              validations={this.state.validations}
+              fieldName="EventDate"
+              placeHolder="Tarih"
+            />
+
+            <DatePicker
+              type="time"
+              dateSelected={this.setTime}
+              validations={this.state.validations}
+              fieldName="EventDate"
+              placeHolder="Saat"
+            />
+            <SelectPicker
+              selectedValue={this.state.selectedCategoryId}
+              placeHolder="Kategoriler"
+              validations={this.state.validations}
+              fieldName="ActivityCategories"
+              setSelectedValue={(selectedCategoryId) =>
+                this.setState({ selectedCategoryId })
+              }
+              items={this.state.categories}
+            />
+          </View>
+
           <Button
-            onPress={() => emitUnFollow()}
-            buttonStyle={{ backgroundColor: "black" }}
+            onPress={() => this.saveEvent()}
+            buttonStyle={{ backgroundColor: "black", marginTop: 10 }}
             icon={
               <Icon
                 type="antdesign"
@@ -181,7 +176,7 @@ export default class NewEventPage extends BaseComponent {
             title="Kaydet"
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

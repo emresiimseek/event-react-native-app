@@ -10,9 +10,8 @@ import ProfileHeader from "./ProfileHeader";
 
 export default class ProfilePage extends BaseComponent {
   state = {
-    currentUser: undefined,
-    visitedUser: undefined,
-    myUserId: undefined,
+    user: null,
+    myUserId: null,
     events: [],
     ...this.baseState,
   };
@@ -21,7 +20,7 @@ export default class ProfilePage extends BaseComponent {
     const result = await this.handleRequest(() =>
       userLogic.getUser(this.state.myUserId)
     );
-    this.setState({ currentUser: result });
+    this.setState({ user: result });
   };
 
   getVisitedUser = async () => {
@@ -43,8 +42,7 @@ export default class ProfilePage extends BaseComponent {
   };
 
   get = async () => {
-    this.setCurrentUser();
-    await this.getVisitedUser();
+    await this.setCurrentUser();
     await this.getCurrentUser();
     await this.getUserAvtivites();
   };
@@ -65,11 +63,10 @@ export default class ProfilePage extends BaseComponent {
   render() {
     return (
       <Page loading={this.state.loading} onRefresh={() => this.get()}>
-        {this.state.currentUser && (
+        {this.state.user && (
           <ProfileHeader
-            user={this.state.currentUser}
+            user={this.state.user}
             eventCount={this.state.events.length}
-            currentUser={this.state.currentUser}
           />
         )}
         <CardList

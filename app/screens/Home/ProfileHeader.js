@@ -6,7 +6,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as RootNavigation from "../../RootNavigation.js";
 
 export default function ProfileHeader(props) {
-  const { user, eventCount, currentUser, followClicked, unFollowClicked } =
+  const { user, eventCount, currentUserId, followClicked, unFollowClicked } =
     props;
 
   const emitFollow = () => {
@@ -109,7 +109,7 @@ export default function ProfileHeader(props) {
                 Takip:{user?.iAmFriendsWith?.length}
               </Text>
             </View>
-            {user?.id != props?.currentUser?.id && (
+            {user?.id != currentUserId && !!currentUserId && (
               <View
                 style={{
                   alignItems: "center",
@@ -118,8 +118,8 @@ export default function ProfileHeader(props) {
                   marginTop: 20,
                 }}
               >
-                {currentUser?.iAmFriendsWith.some(
-                  (u) => u.userChildId == user?.id
+                {user?.iAmFriendsWith.some(
+                  (u) => u.userChildId == currentUserId
                 ) ? (
                   <Button
                     onPress={() => emitUnFollow()}

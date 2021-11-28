@@ -13,12 +13,14 @@ class CardComponent extends BaseComponent {
     await this.handleRequest(() =>
       eventLogic.likeEvent(1, this.props.event.activityId)
     );
+    this.props.likedEvent();
   };
 
   unlikeEvent = async () => {
     await this.handleRequest(() =>
       eventLogic.unlikeEvent(1, this.props.event.activityId)
     );
+    this.props.likedEvent();
   };
 
   render() {
@@ -73,7 +75,6 @@ class CardComponent extends BaseComponent {
                     ? "red"
                     : "black"
                 }
-                onPressOut={this.props.likedEvent}
                 size={20}
               />
               <Icon

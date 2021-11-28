@@ -10,18 +10,10 @@ import ProfileHeader from "./ProfileHeader";
 
 export default class VisitedUserProfilePage extends BaseComponent {
   state = {
-    currentUser: null,
     visitedUser: null,
-    myUserId: null,
+    currentUserId: null,
     events: [],
     ...this.baseState,
-  };
-
-  getCurrentUser = async () => {
-    const result = await this.handleRequest(() =>
-      userLogic.getUser(this.state.myUserId)
-    );
-    this.setState({ currentUser: result });
   };
 
   getVisitedUser = async () => {
@@ -42,15 +34,14 @@ export default class VisitedUserProfilePage extends BaseComponent {
   };
 
   get = async () => {
-    this.setCurrentUser();
+    await this.setCurrentUser();
     await this.getVisitedUser();
-    await this.getCurrentUser();
     await this.getUserAvtivites();
   };
 
   setCurrentUser = () => {
     const user = () => JSON.parse(AsyncStorage.getItem("user"));
-    this.setState({ myUserId: 1 });
+    this.setState({ currentUserId: 1 });
   };
 
   componentDidMount() {
@@ -65,8 +56,8 @@ export default class VisitedUserProfilePage extends BaseComponent {
   followUser = async () => {
     await this.handleRequest(() =>
       userLogic.follow({
-        userParentId: this.state.myUserId,
-        userChildId: this.state.visitedUser.id,
+        userParentId: this.state.visitedUser.id,
+        userChildId: this.state.currentUserId,
       })
     );
     await this.get();
@@ -76,8 +67,8 @@ export default class VisitedUserProfilePage extends BaseComponent {
   unFollowUser = async () => {
     await this.handleRequest(() =>
       userLogic.unFollow({
-        userParentId: this.state.myUserId,
-        userChildId: this.state.visitedUser.id,
+        userParentId: this.state.visitedUser.id,
+        userChildId: this.state.currentUserId,
       })
     );
 
@@ -92,7 +83,7 @@ export default class VisitedUserProfilePage extends BaseComponent {
           <ProfileHeader
             user={this.state.visitedUser}
             eventCount={this.state.events.length}
-            currentUser={this.state.currentUser}
+            currentUserId={this.state.currentUserId}
             followClicked={() => this.followUser()}
             unFollowClicked={() => this.unFollowUser()}
             isVisibleBack={true}
