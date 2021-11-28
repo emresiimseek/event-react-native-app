@@ -26,11 +26,14 @@ export default function DatePicker(props) {
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
-  const [text, setText] = useState("Boş");
+  const [text, setText] = useState("Seçiniz");
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
+
+    if (event.type == "dismissed") return;
+
+    const currentDate = selectedDate || date;
     setDate(currentDate);
 
     type == "time"
@@ -62,7 +65,12 @@ export default function DatePicker(props) {
       {type == "time" ? (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View style={{ flex: 2, marginRight: 5 }}>
-            <FormInput placeholder={placeHolder} value={text} disabled={true} />
+            <FormInput
+              placeholder={placeHolder}
+              value={text}
+              disabled={true}
+              onPress={() => showTimepicker}
+            />
           </View>
           <View style={{ paddingTop: 4 }}>
             <Button color="black" text="Saat Seç" onPress={showTimepicker}>
@@ -78,7 +86,11 @@ export default function DatePicker(props) {
       ) : (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View style={{ flex: 2, marginRight: 5 }}>
-            <FormInput placeholder={placeHolder} value={text} disabled={true} />
+            <FormInput
+              placeholder={placeHolder}
+              value={text}
+              onPress={() => showTimepicker}
+            />
           </View>
           <View style={{ paddingTop: 4 }}>
             <Button color="black" text="Tarih Seç" onPress={showDatepicker}>
