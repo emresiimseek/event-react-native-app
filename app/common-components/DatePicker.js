@@ -12,7 +12,8 @@ import Button from "../common-components/CoButton";
 import moment from "moment";
 import DateUtils from "../logic/date-utils";
 import ValidationList from "../common-components/ValidationList";
-import { Icon } from "react-native-elements";
+import { Icon, Input } from "react-native-elements";
+import { getValidationItems } from "../logic/validations-utils";
 
 export default function DatePicker(props) {
   const {
@@ -26,7 +27,7 @@ export default function DatePicker(props) {
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
-  const [text, setText] = useState("Seçiniz");
+  const [text, setText] = useState("");
 
   const onChange = (event, selectedDate) => {
     setShow(Platform.OS === "ios");
@@ -64,48 +65,41 @@ export default function DatePicker(props) {
     <View>
       {type == "time" ? (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={{ flex: 2, marginRight: 5 }}>
-            <FormInput
-              placeholder={placeHolder}
-              value={text}
-              disabled={true}
-              onPress={() => showTimepicker}
-            />
-          </View>
-          <View style={{ paddingTop: 4 }}>
-            <Button color="black" text="Saat Seç" onPress={showTimepicker}>
-              <Icon
-                name="clockcircleo"
-                color="white"
-                type="antdesign"
-                size={20}
-              />
-            </Button>
-          </View>
+          <Input
+            value={text}
+            rightIcon={{
+              name: "clockcircleo",
+              type: "antdesign",
+              size: 20,
+            }}
+            onFocus={() => showTimepicker()}
+            placeholder={placeHolder}
+            errorMessage={getValidationItems(
+              validations,
+              fieldName,
+              placeHolder
+            )}
+          />
         </View>
       ) : (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={{ flex: 2, marginRight: 5 }}>
-            <FormInput
-              placeholder={placeHolder}
-              value={text}
-              onPress={() => showTimepicker}
-            />
-          </View>
-          <View style={{ paddingTop: 4 }}>
-            <Button color="black" text="Tarih Seç" onPress={showDatepicker}>
-              <Icon name="calendar" color="white" type="antdesign" size={20} />
-            </Button>
-          </View>
+          <Input
+            value={text}
+            rightIcon={{
+              name: "calendar",
+              type: "antdesign",
+              size: 20,
+            }}
+            onFocus={() => showDatepicker()}
+            placeholder={placeHolder}
+            errorMessage={getValidationItems(
+              validations,
+              fieldName,
+              placeHolder
+            )}
+          />
         </View>
       )}
-      <View style={{ alignItems: "center", marginTop: 10 }}>
-        <ValidationList
-          validations={validations}
-          fieldName={fieldName}
-          placeHolder={placeHolder}
-        />
-      </View>
 
       {show && (
         <DateTimePicker

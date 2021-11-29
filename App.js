@@ -38,25 +38,26 @@ export default function App() {
               title: "BeSocial",
             }}
           />
-
-          <Stack.Screen name="NewEvent" component={NewEventPage} />
-          <Stack.Screen name="Flow" component={FlowPage} />
-          <Stack.Screen name="Profile" component={ProfilePage} />
           <Stack.Screen
             name="Login"
             component={LoginPage}
             options={{
-              headerStyle: { backgroundColor: "#00000050" },
+              headerStyle: { backgroundColor: "gray" },
               headerTitleStyle: { color: "white" },
               headerTitleAlign: "center",
               title: "Giriş",
             }}
           />
+
+          <Stack.Screen name="NewEvent" component={NewEventPage} />
+          <Stack.Screen name="Flow" component={FlowPage} />
+          <Stack.Screen name="Profile" component={ProfilePage} />
+
           <Stack.Screen
             name="Signin"
             component={SignIn}
             options={{
-              headerStyle: { backgroundColor: "#00000050" },
+              headerStyle: { backgroundColor: "gray" },
               headerTitleStyle: { color: "white" },
               headerTitleAlign: "center",
               title: "Kayıt Ol",
