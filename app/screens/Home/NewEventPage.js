@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { Text, StyleSheet, View, Alert, ScrollView } from "react-native";
-import { Button, Icon } from "react-native-elements";
+import { Button, Icon, Input } from "react-native-elements";
 import Toast from "react-native-toast-message";
 import BaseComponent from "../../common-components/BaseComponent";
 import DatePicker from "../../common-components/DatePicker";
@@ -9,6 +9,7 @@ import FormInput from "../../common-components/FormInput";
 import SelectPicker from "../../common-components/SelectPicker";
 import dateUtils from "../../logic/date-utils";
 import { eventLogic } from "../../logic/event-logic";
+import { getValidationItems } from "../../logic/validations-utils";
 
 export default class NewEventPage extends BaseComponent {
   state = {
@@ -53,7 +54,7 @@ export default class NewEventPage extends BaseComponent {
         ...this.state.event,
         userActivities: [
           {
-            userId: user.id ?? 1,
+            userId: user?.id ?? 1,
             activityId: 0,
           },
         ],
@@ -112,26 +113,35 @@ export default class NewEventPage extends BaseComponent {
             >
               Etlinlik Oluştur
             </Text>
-            <FormInput
-              placeholder="Başlık"
+
+            <Input
+              value={this.state.event.title}
+              rightIcon={{ name: "pencil", type: "evilicon" }}
               onChangeText={(title) =>
                 this.setState({ event: { ...this.state.event, title } })
               }
-              value={this.state.event.title}
-              validations={this.state.validations}
-              fieldName="Title"
+              placeholder="Başlık"
+              errorMessage={getValidationItems(
+                this.state.validations,
+                "Title",
+                "Başlık"
+              )}
             />
 
-            <FormInput
+            <Input
+              value={this.state.event.description}
+              rightIcon={{ name: "pencil", type: "evilicon" }}
               onChangeText={(description) =>
                 this.setState({
                   event: { ...this.state.event, description },
                 })
               }
               placeholder="Açıklama"
-              value={this.state.event.description}
-              validations={this.state.validations}
-              fieldName="Description"
+              errorMessage={getValidationItems(
+                this.state.validations,
+                "Description",
+                "Açıklama"
+              )}
             />
 
             <DatePicker
@@ -149,6 +159,7 @@ export default class NewEventPage extends BaseComponent {
               fieldName="EventDate"
               placeHolder="Saat"
             />
+
             <SelectPicker
               selectedValue={this.state.selectedCategoryId}
               placeHolder="Kategoriler"

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   ActivityIndicator,
   Alert,
-  Button,
   ImageBackground,
   StyleSheet,
   Text,
@@ -12,9 +11,9 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
 import BaseComponent from "../common-components/BaseComponent";
-import CoButton from "../common-components/CoButton";
-import FormInput from "../common-components/FormInput";
 import UserLogic, { userLogic } from "../logic/user-logic";
+import { Button, Input } from "react-native-elements";
+import { getValidationItems } from "../logic/validations-utils";
 
 class LoginPage extends BaseComponent {
   state = { userName: "", password: "", ...this.baseState };
@@ -37,7 +36,7 @@ class LoginPage extends BaseComponent {
       Toast.show({
         type: "success",
         text1: "Giriş Başarılı.",
-        position: "bottom",
+        position: "top",
       });
 
       AsyncStorage.setItem("user", JSON.stringify(result.model[0]));
@@ -48,81 +47,63 @@ class LoginPage extends BaseComponent {
 
   render() {
     return (
-      <ImageBackground
-        style={styles.background}
-        source={require("../assets/img/fun.jpg")}
+      <View
+        style={{
+          paddingHorizontal: 20,
+          flex: 1,
+          justifyContent: "center",
+        }}
       >
-        <View style={styles.loginContainer}>
-          <View style={styles.formContainer}>
-            <Text
-              style={{
-                fontSize: 30,
-                fontWeight: "bold",
-                textAlign: "center",
-                marginBottom: 15,
-                color: "white",
-              }}
-            >
-              BeSocail
-            </Text>
-            <FormInput
-              style={styles.input}
-              value={this.state.userName}
-              onChangeText={(userName) => this.setState({ userName })}
-              placeholder="Kullanıcı Adı"
-              validations={this.state.validations}
-              fieldName="UserName"
-            />
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: 5,
+            color: "black",
+          }}
+        >
+          BeSocail
+        </Text>
+        <Input
+          placeholder="Kullanıcı Adı"
+          leftIcon={{ type: "antdesign", name: "mail", size: 20 }}
+          style={{ color: "black" }}
+          value={this.state.userName}
+          onChangeText={(userName) => this.setState({ userName })}
+          errorMessage={getValidationItems(
+            this.state.validations,
+            "UserName",
+            "Kullanıcı Adı"
+          )}
+        />
+        <Input
+          placeholder="Parola"
+          leftIcon={{ type: "antdesign", name: "lock", size: 20 }}
+          style={{ color: "black" }}
+          value={this.state.password}
+          onChangeText={(password) => this.setState({ password })}
+          secureTextEntry
+          errorMessage={getValidationItems(
+            this.state.validations,
+            "Password",
+            "Parola"
+          )}
+        />
 
-            <FormInput
-              style={styles.input}
-              value={this.state.password}
-              onChangeText={(password) => this.setState({ password })}
-              placeholder="Parola"
-              validations={this.state.validations}
-              secureTextEntry={true}
-              fieldName="Password"
-            />
-
-            <View style={{ alignItems: "center" }}>
-              <CoButton
-                loading={this.state.loading}
-                text="Giriş"
-                color="black"
-                width={50}
-                onPress={() => this.login()}
-              />
-            </View>
-          </View>
-        </View>
-      </ImageBackground>
+        <Button
+          loading={this.state.loading}
+          title="Giriş"
+          onPress={() => this.login()}
+          buttonStyle={{ backgroundColor: "black" }}
+        />
+      </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-    color: "black",
-    borderColor: "gray",
-    backgroundColor: "white",
-  },
   background: {
     flex: 1,
-  },
-  loginContainer: {
-    justifyContent: "center",
-    flex: 1,
-    marginBottom: 60,
-  },
-  formContainer: {
-    backgroundColor: "#00000050",
-    padding: 60,
-    margin: 5,
-    borderRadius: 5,
   },
 });
 
