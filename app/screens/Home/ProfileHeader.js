@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button, Icon } from "react-native-elements";
+import { Avatar } from "react-native-elements/dist/avatar/Avatar";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as RootNavigation from "../../RootNavigation.js";
@@ -84,7 +85,15 @@ export default function ProfileHeader(props) {
               marginTop: 10,
             }}
           >
-            <Icon reverse name="user" type="antdesign" color="gray" size={33} />
+            <Avatar
+              rounded
+              title={(
+                user.firstName.charAt(0) + user.lastName.charAt(0)
+              ).toUpperCase()}
+              containerStyle={{ backgroundColor: "gray" }}
+              titleStyle={{ color: "white" }}
+              size={50}
+            />
           </View>
           <View
             style={{
