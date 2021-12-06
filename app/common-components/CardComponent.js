@@ -77,12 +77,20 @@ class CardComponent extends BaseComponent {
                 }
                 size={20}
               />
-              <Icon
-                style={{ marginRight: 5, marginLeft: 5 }}
-                type="font-awesome-5"
-                name="comment"
-                size={20}
-              />
+              <View style={{ marginRight: 5, marginLeft: 5 }}>
+                <Icon
+                  type="font-awesome-5"
+                  name="comment"
+                  onPress={() =>
+                    this.props.navigation.navigate("Search", {
+                      screen: "Comment",
+                      params: { eventId: this.props.event.activityId },
+                    })
+                  }
+                  size={20}
+                />
+              </View>
+
               <Icon name="paper-plane-o" type="font-awesome" size={20} />
             </View>
             <View style={{ flexDirection: "row" }}>

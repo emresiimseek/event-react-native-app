@@ -15,6 +15,7 @@ export default class CardList extends BaseComponent {
               event={event}
               key={i}
               likedEvent={this.props.likedEvent}
+              navigation={this.props.navigation}
             />
           ))}
         </Page>
