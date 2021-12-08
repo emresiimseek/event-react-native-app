@@ -82,7 +82,7 @@ class CardComponent extends BaseComponent {
                   type="font-awesome-5"
                   name="comment"
                   onPress={() =>
-                    this.props.navigation.navigate("Search", {
+                    this.props.navigation.navigate("Home", {
                       screen: "Comment",
                       params: { eventId: this.props.event.activityId },
                     })

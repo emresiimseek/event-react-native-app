@@ -56,8 +56,8 @@ export default class VisitedUserProfilePage extends BaseComponent {
   followUser = async () => {
     await this.handleRequest(() =>
       userLogic.follow({
-        userParentId: this.state.visitedUser.id,
-        userChildId: this.state.currentUserId,
+        userParentId: this.state.currentUserId,
+        userChildId: this.state.visitedUser.id,
       })
     );
     await this.get();
@@ -67,8 +67,8 @@ export default class VisitedUserProfilePage extends BaseComponent {
   unFollowUser = async () => {
     await this.handleRequest(() =>
       userLogic.unFollow({
-        userParentId: this.state.visitedUser.id,
-        userChildId: this.state.currentUserId,
+        userParentId: this.state.currentUserId,
+        userChildId: this.state.visitedUser.id,
       })
     );
 
