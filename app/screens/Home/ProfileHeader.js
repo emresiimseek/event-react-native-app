@@ -4,7 +4,7 @@ import { Button, Icon } from "react-native-elements";
 import { Avatar } from "react-native-elements/dist/avatar/Avatar";
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import * as RootNavigation from "../../RootNavigation.js";
+import { goBack, navigate } from "../../RootNavigation";
 
 export default function ProfileHeader(props) {
   const { user, eventCount, currentUserId, followClicked, unFollowClicked } =
@@ -38,7 +38,7 @@ export default function ProfileHeader(props) {
         {props.isVisibleBack && (
           <Icon
             name="arrowleft"
-            onPress={() => RootNavigation.navigate("SearchDetail")}
+            onPress={() => goBack()}
             type="antdesign"
             size={25}
             style={{ marginLeft: 10 }}
@@ -55,7 +55,7 @@ export default function ProfileHeader(props) {
         >
           <Icon
             name="logout"
-            onPress={() => RootNavigation.navigate("Welcome")}
+            onPress={() => navigate("Welcome")}
             type="antdesings"
             size={25}
             style={{ marginLeft: 10 }}
@@ -127,8 +127,8 @@ export default function ProfileHeader(props) {
                   marginTop: 20,
                 }}
               >
-                {user?.iAmFriendsWith.some(
-                  (u) => u.userChildId == currentUserId
+                {user?.areFirendsWithMe.some(
+                  (u) => u.userParentId == currentUserId
                 ) ? (
                   <Button
                     onPress={() => emitUnFollow()}

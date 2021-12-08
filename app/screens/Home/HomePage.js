@@ -5,6 +5,7 @@ import ProfilePage from "./ProfilePage";
 import NewEventPage from "./NewEventPage";
 import SearchPage from "./SearchPage";
 import { Icon } from "react-native-elements";
+import CommentPage from "../CommentPage";
 const Tab = createBottomTabNavigator();
 
 // rnc
@@ -60,7 +61,6 @@ class HomePage extends Component {
               );
           },
 
-          tabBarActiveTintColor: "red",
           headerStatusBarHeight: 5,
           headerTitleStyle: { color: "black" },
           headerTitleAlign: "center",
@@ -71,6 +71,15 @@ class HomePage extends Component {
         <Tab.Screen name="Flow" component={FlowPage} />
         <Tab.Screen name="Search" component={SearchPage} />
         <Tab.Screen name="NewEvent" component={NewEventPage} />
+        <Tab.Screen
+          name="Comment"
+          component={CommentPage}
+          options={{
+            tabBarButton: () => null,
+            tabBarVisible: false, // if you don't want to see the tab bar
+          }}
+        />
+
         {/* <Tab.Screen
           options={{
             tabBarButton: () => null,

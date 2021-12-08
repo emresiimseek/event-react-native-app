@@ -4,7 +4,7 @@ import { Avatar, Icon, ListItem } from "react-native-elements";
 import BaseComponent from "../common-components/BaseComponent";
 import Page from "../common-components/Page";
 import { eventLogic } from "../logic/event-logic";
-import * as RootNavigation from "../RootNavigation.js";
+import { directNested, navigate } from "../RootNavigation.js";
 
 export default class CommentPage extends BaseComponent {
   state = { event: null, comments: [], ...this.baseState };
@@ -30,7 +30,7 @@ export default class CommentPage extends BaseComponent {
           <ListItem
             style={{ marginTop: 10 }}
             onPress={() =>
-              RootNavigation.navigate("Search", {
+              directNested("Search", "VisitedProfile", {
                 visitedUserId: this.state.event.userId,
               })
             }
@@ -64,7 +64,7 @@ export default class CommentPage extends BaseComponent {
             <ListItem
               style={{ marginTop: 10 }}
               onPress={() =>
-                RootNavigation.navigate("Search", {
+                navigate("Search", {
                   visitedUserId: this.state.event.userId,
                 })
               }
