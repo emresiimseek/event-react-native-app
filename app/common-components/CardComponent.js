@@ -5,6 +5,7 @@ import { Button, ImageBackground, StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { eventLogic } from "../logic/event-logic";
 import BaseComponent from "../common-components/BaseComponent";
+import { navigate } from "../RootNavigation";
 
 class CardComponent extends BaseComponent {
   state = { event: null, ...this.baseState };
@@ -82,9 +83,8 @@ class CardComponent extends BaseComponent {
                   type="font-awesome-5"
                   name="comment"
                   onPress={() =>
-                    this.props.navigation.navigate("Home", {
-                      screen: "Comment",
-                      params: { eventId: this.props.event.activityId },
+                    navigate("Comment", {
+                      eventId: this.props.event.activityId,
                     })
                   }
                   size={20}

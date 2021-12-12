@@ -71,14 +71,6 @@ class HomePage extends Component {
         <Tab.Screen name="Flow" component={FlowPage} />
         <Tab.Screen name="Search" component={SearchPage} />
         <Tab.Screen name="NewEvent" component={NewEventPage} />
-        <Tab.Screen
-          name="Comment"
-          component={CommentPage}
-          options={{
-            tabBarButton: () => null,
-            tabBarVisible: false, // if you don't want to see the tab bar
-          }}
-        />
 
         {/* <Tab.Screen
           options={{

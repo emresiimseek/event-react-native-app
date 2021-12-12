@@ -10,6 +10,7 @@ import FlowPage from "./app/screens/Home/FlowPage";
 import ProfilePage from "./app/screens/Home/ProfilePage";
 import NewEventPage from "./app/screens/Home/NewEventPage";
 import { navigationRef } from "./app/RootNavigation";
+import CommentPage from "./app/screens/CommentPage";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -61,6 +62,16 @@ export default function App() {
               headerTitleStyle: { color: "white" },
               headerTitleAlign: "center",
               title: "Kayıt Ol",
+            }}
+          />
+          <Stack.Screen
+            name="Comment"
+            component={CommentPage}
+            options={{
+              headerStyle: { backgroundColor: "gray" },
+              headerTitleStyle: { color: "white" },
+              headerTitleAlign: "center",
+              title: "Yorumlar",
             }}
           />
         </Stack.Navigator>
