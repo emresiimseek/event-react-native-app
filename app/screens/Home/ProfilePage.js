@@ -67,6 +67,7 @@ export default class ProfilePage extends BaseComponent {
           <ProfileHeader
             user={this.state.user}
             eventCount={this.state.events.length}
+            isVisibleHeader={true}
           />
         )}
         <CardList

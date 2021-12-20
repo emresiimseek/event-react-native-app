@@ -86,7 +86,7 @@ export default class VisitedUserProfilePage extends BaseComponent {
             currentUserId={this.state.currentUserId}
             followClicked={() => this.followUser()}
             unFollowClicked={() => this.unFollowUser()}
-            isVisibleBack={true}
+            isVisibleHeader={false}
           />
         )}
 

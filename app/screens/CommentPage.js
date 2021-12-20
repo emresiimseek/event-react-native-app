@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 import { Text, StyleSheet, View, TextInput } from "react-native";
-import { Avatar, Button, Icon, ListItem } from "react-native-elements";
+import { Avatar, Button, Icon, Input, ListItem } from "react-native-elements";
 import BaseComponent from "../common-components/BaseComponent";
 import Page from "../common-components/Page";
 import { eventLogic } from "../logic/event-logic";
+import { commentLogic } from "../logic/comment-logic";
+
 import { directNested, navigate } from "../RootNavigation.js";
 
 export default class CommentPage extends BaseComponent {
-  state = { event: null, comments: [], commentText: "", ...this.baseState };
+  state = {
+    event: null,
+    comments: [],
+    commentText: "",
+    currentComment: { userId: null, activityId: null, text: null, user: null },
+    ...this.baseState,
+  };
 
   componentDidMount() {
-    this.getEvent();
+    Promise.all([this.getEvent(), this.getComments()]);
   }
 
   getEvent = async () => {
@@ -23,15 +31,40 @@ export default class CommentPage extends BaseComponent {
     this.setState({ event });
   };
 
+  getComments = async () => {
+    const comments = await this.handleRequest(() =>
+      commentLogic.getComments(this.props.route.params.eventId)
+    );
+
+    this.setState({ comments: comments });
+  };
+
+  saveComment = () => {
+    const activityId = this.props.route.params.eventId;
+    const userId = 1;
+
+    this.setState({
+      currentComment: { ...this.state.currentComment, activityId, userId },
+    });
+
+    const value = this.handleRequest(() =>
+      commentLogic.saveComment(this.state.currentComment)
+    );
+  };
+
+  replyComment = () => {
+    alert("reply comment");
+  };
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <Page loading={this.state.loading} onRefresh={() => this.getEvent()}>
           {this.state.event && (
             <ListItem
-              style={{ marginTop: 10 }}
+              style={{ marginVertical: 10 }}
               onPress={() =>
-                directNested("Search", "VisitedProfile", {
+                navigate("VisitedProfile", {
                   visitedUserId: this.state.event.userId,
                 })
               }
@@ -62,23 +95,47 @@ export default class CommentPage extends BaseComponent {
 
           {this.state.comments?.length ? (
             this.state.comments.map((c) => (
-              <ListItem
-                style={{ marginTop: 10 }}
+              <ListItem.Swipeable
+                key={c.text}
+                bottomDivider
                 onPress={() =>
-                  navigate("Search", {
+                  navigate("VisitedProfile", {
                     visitedUserId: this.state.event.userId,
                   })
                 }
-                bottomDivider
+                rightContent={
+                  <Button
+                    onPress={() => this.replyComment()}
+                    title="Cevapla"
+                    icon={{ name: "reply", color: "white", type: "entypo" }}
+                    buttonStyle={{
+                      minHeight: "100%",
+                    }}
+                  />
+                }
               >
                 <Icon name="user" type="evilicon" size={50} />
                 <ListItem.Content>
-                  <ListItem.Title>{c.userName}</ListItem.Title>
+                  <ListItem.Title>{c.user.userName}</ListItem.Title>
                   <ListItem.Subtitle>
-                    <Text style={{ fontWeight: "bold" }}>{c.comment}</Text>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Text style={{ fontWeight: "bold", flex: 1 }}>
+                        {c.text}
+                      </Text>
+
+                      <Button
+                        title="Cevapla"
+                        buttonStyle={{ backgroundColor: "transparent" }}
+                        titleStyle={{ color: "#00BFFF", fontSize: 10 }}
+                        onPress={() => this.replyComment()}
+                      />
+                    </View>
                   </ListItem.Subtitle>
                 </ListItem.Content>
-              </ListItem>
+                <ListItem.Chevron />
+              </ListItem.Swipeable>
             ))
           ) : (
             <Text
@@ -122,20 +179,25 @@ export default class CommentPage extends BaseComponent {
               style={{
                 margin: 12,
                 minHeight: 40,
-                borderWidth: 1,
-                borderColor: "#c7c7c7",
+                borderBottomWidth: 1,
+                borderBottomColor: "#c7c7c7",
                 flex: 1,
-                borderRadius: 5,
               }}
               multiline={true}
-              numberOfLines={2}
-              onChangeText={(value) => this.setState({ commentText: value })}
-              value={this.state.commentText}
+              numberOfLines={1}
+              onChangeText={(text) =>
+                this.setState({
+                  currentComment: { ...this.state.currentComment, text },
+                })
+              }
+              value={this.state.currentComment.text}
             />
+
             <Button
               title="Gönder"
               buttonStyle={{ backgroundColor: "transparent" }}
               titleStyle={{ color: "#00BFFF" }}
+              onPress={() => this.saveComment()}
             />
           </View>
         )}

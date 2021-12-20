@@ -7,8 +7,14 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { goBack, navigate } from "../../RootNavigation";
 
 export default function ProfileHeader(props) {
-  const { user, eventCount, currentUserId, followClicked, unFollowClicked } =
-    props;
+  const {
+    user,
+    eventCount,
+    currentUserId,
+    followClicked,
+    unFollowClicked,
+    isVisibleHeader,
+  } = props;
 
   const emitFollow = () => {
     followClicked();
@@ -26,48 +32,41 @@ export default function ProfileHeader(props) {
         borderRadius: 5,
       }}
     >
-      <View
-        style={{
-          padding: 5,
-          marginBottom: 5,
-          backgroundColor: "white",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        {props.isVisibleBack && (
-          <Icon
-            name="arrowleft"
-            onPress={() => goBack()}
-            type="antdesign"
-            size={25}
-            style={{ marginLeft: 10 }}
-          />
-        )}
-
+      {isVisibleHeader && (
         <View
           style={{
-            flex: 1,
+            padding: 5,
+            marginBottom: 5,
+            backgroundColor: "white",
             flexDirection: "row",
-            justifyContent: "flex-end",
             alignItems: "center",
           }}
         >
-          <Icon
-            name="logout"
-            onPress={() => navigate("Welcome")}
-            type="antdesings"
-            size={25}
-            style={{ marginLeft: 10 }}
-          />
-          <Icon
-            name="bars"
-            type="antdesign"
-            size={25}
-            style={{ marginLeft: 10, marginRight: 10 }}
-          />
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <Icon
+              name="logout"
+              onPress={() => navigate("Welcome")}
+              type="antdesings"
+              size={25}
+              style={{ marginLeft: 10 }}
+            />
+            <Icon
+              name="bars"
+              type="antdesign"
+              size={25}
+              style={{ marginLeft: 10, marginRight: 10 }}
+            />
+          </View>
         </View>
-      </View>
+      )}
+
       <View style={{ backgroundColor: "white" }}>
         <View
           style={{

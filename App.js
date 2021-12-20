@@ -11,6 +11,7 @@ import ProfilePage from "./app/screens/Home/ProfilePage";
 import NewEventPage from "./app/screens/Home/NewEventPage";
 import { navigationRef } from "./app/RootNavigation";
 import CommentPage from "./app/screens/CommentPage";
+import VisitedUserProfilePage from "./app/screens/Home/VisitedUserProfilePage";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -73,6 +74,17 @@ export default function App() {
               headerTitleAlign: "center",
               title: "Yorumlar",
             }}
+          />
+
+          <Stack.Screen
+            name="VisitedProfile"
+            options={{
+              headerStyle: { backgroundColor: "gray" },
+              headerTitleStyle: { color: "white" },
+              headerTitleAlign: "center",
+              title: "BeSocail",
+            }}
+            component={VisitedUserProfilePage}
           />
         </Stack.Navigator>
       </NavigationContainer>

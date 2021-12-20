@@ -23,13 +23,6 @@ export default class SearchPage extends BaseComponent {
           }}
           component={SearchDetailPage}
         />
-        <Tab.Screen
-          name="VisitedProfile"
-          options={{
-            tabBarVisible: false,
-          }}
-          component={VisitedUserProfilePage}
-        />
       </Tab.Navigator>
     );
   }
